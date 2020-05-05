@@ -30,23 +30,21 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
     private Object cadenasControleur;
 
     private int largeur, hauteur;
-    private WeakHashMap<Poisson, Integer> poissonColors, poissonImages;
-    private WeakHashMap<Poisson, Boolean> poissonCote;
+    private WeakHashMap<Poisson, Integer> poissonImages;
+    private WeakHashMap<Poisson, Paint> poissonPaints;
+    private WeakHashMap<Poisson, Boolean> poissonCotes;
     private Random random;
-    private int[] imgIdPoissons, colorPoissons;
-    private final float FACTEUR_GRANDEUR;
+    private int[] imgIdPoissons;
+    private Paint[] paintPoissons;
 
-    private Paint bullePaint, msgCentrePaint;
+    private Paint msgCentrePaint, bullePaint;
 
     public VueJeu(Context context, int largeur, int hauteur) {
         super(context);
         this.largeur = largeur;
         this.hauteur = hauteur;
-        FACTEUR_GRANDEUR = hauteur / 480f;
         surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
-
-        setBackgroundColor(getResources().getColor(R.color.fondMarin));
 
         animationJeu = new AnimationJeu();
         controleurPartie = new ControleurPartie(largeur, hauteur);
@@ -91,6 +89,8 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     protected void onDraw(Canvas canvas) {
 
+        canvas.drawColor(getResources().getColor(R.color.fondMarin));
+
         if(controleurPartie.getPartieTerminee()) {
 
             Log.i("État de la partie", "Partie terminée");
@@ -106,8 +106,8 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
             msgCentrePaint.getTextBounds(msg, 0, msg.length(), grandeur);
 
             canvas.drawText(msg, (canvas.getWidth() - grandeur.width()) / 2f,
-                    (canvas.getHeight() - grandeur.height()) / 2,
-                    msgCentrePaint);
+                    (canvas.getHeight() - grandeur.height()) / 2, msgCentrePaint);
+
         } else if(controleurPartie.getAugmenteNiveau()) {
 
             Log.i("État de la partie", "Augmente de niveau");
@@ -117,15 +117,13 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
             msgCentrePaint.getTextBounds(msg, 0, msg.length(), grandeur);
 
             canvas.drawText(msg, (canvas.getWidth() - grandeur.width())  / 2f,
-                    (canvas.getHeight() + grandeur.height()) / 2f,
-                    msgCentrePaint);
+                    (canvas.getHeight() + grandeur.height()) / 2f, msgCentrePaint);
 
         } else {
             synchronized (cadenasControleur) {
 
                 Log.i("État de la partie", "Partie en cours");
 
-                canvas.drawColor(getResources().getColor(R.color.bulle));
                 for(Bulle bulle : controleurPartie.getBulles()) {
                     canvas.drawCircle((float)bulle.getX(), (float)bulle.getY(),
                             (float)bulle.getDiametre() / 2, bullePaint);
@@ -133,13 +131,13 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
                 for(Poisson poisson : controleurPartie.getPoissons()) {
 
-                    if(!poissonColors.containsKey(poisson)) {
+                    if(!poissonPaints.containsKey(poisson)) {
 
-                        poissonColors.put(poisson,
-                                colorPoissons[random.nextInt(colorPoissons.length)]);
+                        poissonPaints.put(poisson,
+                                paintPoissons[random.nextInt(paintPoissons.length)]);
                         poissonImages.put(poisson,
                                 imgIdPoissons[random.nextInt(imgIdPoissons.length)]);
-                        poissonCote.put(poisson, poisson.getVx() > 0);
+                        poissonCotes.put(poisson, poisson.getVx() > 0);
 
                     }
 
@@ -148,23 +146,26 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
                     //On ajuste l'image à la taille des poissons. S'il se déplace vers la gauche,
                     //alors on retourne l'image.
                     image = Bitmap.createScaledBitmap(image,
-                            (poissonCote.get(poisson) ? 1 : -1) * (int)poisson.getLargeur(),
+                            (poissonCotes.get(poisson) ? 1 : -1) * (int)poisson.getLargeur(),
                             (int)poisson.getHauteur(), false);
-                    canvas.drawColor(poissonColors.get(poisson));
                     canvas.drawBitmap(image, (float)poisson.getX(),
-                            (float)poisson.getY(), null);
+                            (float)poisson.getY(), poissonPaints.get(poisson));
 
                 }
 
                 for(Projectile projectile : controleurPartie.getProjectiles()) {
 
-                    canvas
+                    canvas.drawColor(Color.BLACK);
+                    canvas.drawCircle((float)projectile.getX(), (float)projectile.getY(),
+                            (float)projectile.getDiametre() / 2, new Paint());
 
                 }
 
                 //TODO : Dessiner le nombre de vies.
 
                 //TODO : Dessiner le score.
+
+                //TODO : Dessiner le nombre de one shot kill.
 
             }
         }
@@ -177,21 +178,26 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private void initOutilsDessin() {
-        bullePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        bullePaint.setStyle(Paint.Style.FILL);
-        bullePaint.setColor(getResources().getColor(R.color.bulle));
 
-        msgCentrePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        bullePaint = new Paint();
+        bullePaint.setColor(getResources().getColor(R.color.bulle));
+        bullePaint.setStyle(Paint.Style.FILL);
+
+        msgCentrePaint = new Paint();
         msgCentrePaint.setColor(Color.WHITE);
         msgCentrePaint.setTextSize(250);
 
-        poissonColors = new WeakHashMap<>();
+        poissonPaints = new WeakHashMap<>();
         poissonImages = new WeakHashMap<>();
+        poissonCotes = new WeakHashMap<>();
 
         imgIdPoissons = new int[] {R.drawable.poisson00, R.drawable.poisson01,
                 R.drawable.poisson02, R.drawable.poisson03, R.drawable.poisson04,
                 R.drawable.poisson05, R.drawable.poisson06, R.drawable.poisson07};
-        colorPoissons = new int[] {Color.RED, Color.GREEN, Color.CYAN, Color.LTGRAY, Color.YELLOW};
+        paintPoissons = new Paint[] {new Paint(Color.RED), new Paint(Color.GREEN),
+                new Paint(Color.CYAN), new Paint(Color.LTGRAY), new Paint(Color.YELLOW)};
+        random = new Random();
+
     }
 
     private class AnimationJeu extends Thread{
