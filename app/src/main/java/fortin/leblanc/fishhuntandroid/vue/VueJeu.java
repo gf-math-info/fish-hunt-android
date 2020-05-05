@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 import android.view.View;
@@ -19,6 +20,8 @@ import fortin.leblanc.fishhuntandroid.R;
 import fortin.leblanc.fishhuntandroid.controleur.ControleurPartie;
 import fortin.leblanc.fishhuntandroid.modele.entite.Bulle;
 import fortin.leblanc.fishhuntandroid.modele.entite.Projectile;
+import fortin.leblanc.fishhuntandroid.modele.entite.poisson.Crabe;
+import fortin.leblanc.fishhuntandroid.modele.entite.poisson.EtoileMer;
 import fortin.leblanc.fishhuntandroid.modele.entite.poisson.Poisson;
 
 public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
@@ -31,9 +34,10 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
     private int largeur, hauteur;
     private WeakHashMap<Poisson, Bitmap> poissonBitmaps;
     private Random random;
+    private Bitmap etoileMerBitmap, crabeBitmap, vieBitmap;
     private int[] imgIdPoissons, couleurPoissons;
 
-    private Paint msgCentrePaint, bullePaint, poissonPaint;
+    private Paint msgCentrePaint, bullePaint, poissonPaint, projectilePaint, scoreViePaint;
 
     public VueJeu(Context context, int largeur, int hauteur) {
         super(context);
@@ -48,12 +52,14 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
         initOutilsDessin();
 
-        setOnClickListener(new OnClickListener() {
+        setOnTouchListener(new OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                synchronized (cadenasControleur) {
-                    controleurPartie.ajouterProjectile(v.getX(), v.getY());
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    controleurPartie.ajouterProjectile(event.getX(), event.getY());
+                    return false;
                 }
+                return true;
             }
         });
     }
@@ -97,8 +103,8 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
             Rect grandeur = new Rect();
             msgCentrePaint.getTextBounds(msg, 0, msg.length(), grandeur);
 
-            canvas.drawText(msg, (canvas.getWidth() - grandeur.width()) / 2f,
-                    (canvas.getHeight() - grandeur.height()) / 2, msgCentrePaint);
+            canvas.drawText(msg, (canvas.getWidth() - grandeur.width()) / 2,
+                    (canvas.getHeight() + grandeur.height()) / 2, msgCentrePaint);
 
         } else if(controleurPartie.getAugmenteNiveau()) {
 
@@ -106,8 +112,8 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
             Rect grandeur = new Rect();
             msgCentrePaint.getTextBounds(msg, 0, msg.length(), grandeur);
 
-            canvas.drawText(msg, (canvas.getWidth() - grandeur.width())  / 2f,
-                    (canvas.getHeight() + grandeur.height()) / 2f, msgCentrePaint);
+            canvas.drawText(msg, (canvas.getWidth() - grandeur.width())  / 2,
+                    (canvas.getHeight() + grandeur.height()) / 2, msgCentrePaint);
 
         } else {
             synchronized (cadenasControleur) {
@@ -121,34 +127,51 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
                     if(!poissonBitmaps.containsKey(poisson)) {//Un nouveau poisson, alors...
 
+                        if(poisson instanceof EtoileMer) {
 
-                        int largeur = (int)poisson.getLargeur(),
-                                hauteur = (int)poisson.getHauteur();
+                            poissonBitmaps.put(poisson, Bitmap.createScaledBitmap(etoileMerBitmap,
+                                    (poisson.getVx() > 0 ? 1 : -1) *
+                                            (int)poisson.getLargeur(), (int)poisson.getHauteur(),
+                                    false));
 
-                        //On choisit la couleur du poisson.
-                        int couleur = couleurPoissons[random.nextInt(couleurPoissons.length)];
+                        } else if(poisson instanceof Crabe) {
 
-                        Bitmap image = BitmapFactory.decodeResource(getResources(),
-                                imgIdPoissons[random.nextInt(imgIdPoissons.length)]);
-                        image = Bitmap.createScaledBitmap(image,
-                                (poisson.getVx() > 0 ? 1 : -1) * (int)poisson.getLargeur(),
-                                (int)poisson.getHauteur(), false);
+                            poissonBitmaps.put(poisson, Bitmap.createScaledBitmap(crabeBitmap,
+                                    (poisson.getVx() > 0 ? 1 : -1) *
+                                            (int)poisson.getLargeur(), (int)poisson.getHauteur(),
+                                    false));
 
-                        //On parcourt l'image et lorsque le pixel est blanc, on change la couleur de
-                        //ce pixel pour la couleur choisit.
-                        for(int x = 0; x < largeur; x++) {
-                            for(int y = 0; y < hauteur; y++) {
+                        } else {
 
-                                int pixel = image.getPixel(x, y);
-                                if(Color.red(pixel) == 255 &&
-                                        Color.green(pixel) == 255 &&
-                                        Color.blue(pixel) == 255) {
-                                    image.setPixel(x, y, couleur);
+                            int largeur = (int) poisson.getLargeur(),
+                                    hauteur = (int) poisson.getHauteur();
+                            //On choisit la couleur du poisson.
+                            int couleur = couleurPoissons[random.nextInt(couleurPoissons.length)];
+
+                            Bitmap image = BitmapFactory.decodeResource(getResources(),
+                                    imgIdPoissons[random.nextInt(imgIdPoissons.length)]);
+                            image = Bitmap.createScaledBitmap(image,
+                                    (poisson.getVx() > 0 ? 1 : -1) *
+                                            (int) poisson.getLargeur(), (int) poisson.getHauteur(),
+                                    false);
+
+                            //On parcourt l'image et lorsque le pixel est blanc, on change la
+                            //couleur de ce pixel pour la couleur choisit.
+                            for (int x = 0; x < largeur; x++) {
+                                for (int y = 0; y < hauteur; y++) {
+
+                                    int pixel = image.getPixel(x, y);
+                                    if (Color.red(pixel) == 255 &&
+                                            Color.green(pixel) == 255 &&
+                                            Color.blue(pixel) == 255) {
+                                        image.setPixel(x, y, couleur);
+                                    }
+
                                 }
-
                             }
+                            poissonBitmaps.put(poisson, image);
+
                         }
-                        poissonBitmaps.put(poisson, image);
 
                     }
 
@@ -160,22 +183,49 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
                 for(Projectile projectile : controleurPartie.getProjectiles()) {
 
                     canvas.drawCircle((float)projectile.getX(), (float)projectile.getY(),
-                            (float)projectile.getDiametre() / 2, new Paint());
+                            (float)projectile.getDiametre() / 2, projectilePaint);
 
                 }
 
-                //TODO : Dessiner le nombre de vies.
+                //On dessie le score.
+                String msgScore = String.valueOf(controleurPartie.getScore());
+                Rect grandeur = new Rect();
+                scoreViePaint.getTextBounds(msgScore, 0, msgScore.length(), grandeur);
+                canvas.drawText(msgScore, (canvas.getWidth() - grandeur.width()) / 2,
+                        100, scoreViePaint);
 
-                //TODO : Dessiner le score.
+                //On dessine les vies.
+                int nbVie = controleurPartie.getNbVie();
+                float x, y = 80 + grandeur.height(), espaceVie = 50;
+                if(nbVie < 5) {
+                    x = (canvas.getWidth() - vieBitmap.getWidth() * nbVie - espaceVie *
+                            (nbVie > 0 ? nbVie - 1 : 0)) / 2;
+                    canvas.drawBitmap(vieBitmap, x, y, scoreViePaint);
+                    for(int i = 1; i < nbVie; i++)
+                        canvas.drawBitmap(vieBitmap, x + i * (vieBitmap.getWidth() + espaceVie),
+                                y, scoreViePaint);
+                } else {
+                    String msgVie = nbVie + " \u2715 ";
+                    scoreViePaint.getTextBounds(msgVie, 0, msgVie.length(), grandeur);
+                    x = (canvas.getWidth() - grandeur.width() - vieBitmap.getWidth()) / 2;
+                    canvas.drawText(msgVie, x, y +
+                            (vieBitmap.getHeight() + grandeur.height()) / 2, scoreViePaint);
+                    canvas.drawBitmap(vieBitmap, x + grandeur.width() + espaceVie, y,
+                            scoreViePaint);
+                }
 
-                //TODO : Dessiner le nombre de one shot kill.
+                if(controleurPartie.getNbUnProjectileUnMort() > 0) {
+                    String msgUnProjectileUnMort = "Tir parfait \u2715 " +
+                            controleurPartie.getNbUnProjectileUnMort();
+                    scoreViePaint.getTextBounds(msgUnProjectileUnMort, 0,
+                            msgUnProjectileUnMort.length(), grandeur);
+
+                    canvas.drawText(msgUnProjectileUnMort, canvas.getWidth() - grandeur.width() -
+                            20, 100, scoreViePaint);
+                }
 
             }
         }
-
-
-
-
 
         super.onDraw(canvas);
     }
@@ -184,13 +234,27 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
         poissonPaint = new Paint();
 
+        projectilePaint = new Paint();
+        projectilePaint.setColor(getResources().getColor(R.color.projectile));
+        projectilePaint.setStyle(Paint.Style.FILL);
+
         bullePaint = new Paint();
         bullePaint.setColor(getResources().getColor(R.color.bulle));
-        bullePaint.setStyle(Paint.Style.FILL);
+        bullePaint.setAlpha(100);
+        bullePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         msgCentrePaint = new Paint();
         msgCentrePaint.setColor(Color.WHITE);
         msgCentrePaint.setTextSize(250);
+
+        scoreViePaint = new Paint();
+        scoreViePaint.setColor(Color.WHITE);
+        scoreViePaint.setTextSize(80);
+
+        etoileMerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.star);
+        crabeBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.crabe);
+        vieBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.poisson00);
+        vieBitmap = Bitmap.createScaledBitmap(vieBitmap, 100, 100, false);
 
         poissonBitmaps = new WeakHashMap<>();
 
@@ -206,14 +270,13 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
         private boolean jeuEnCours;
         private Object cadenasJeuEnCours;
-        private long deltaTemps;
-        
-        private final long FRAME_RATE = 100;
+        private long dernierMoment, maintenant;
+        private double deltaTemps;
 
         public AnimationJeu() {
             jeuEnCours = true;
             cadenasJeuEnCours = new Object();
-            deltaTemps = 1000 / FRAME_RATE;
+            dernierMoment = System.nanoTime();
         }
 
         @SuppressLint("WrongCall")
@@ -229,7 +292,10 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
                     canvas = surfaceHolder.lockCanvas();
                     synchronized (surfaceHolder) {
                         synchronized (cadenasControleur) {
-                            controleurPartie.actualiser(deltaTemps * 1e-3);
+                            maintenant = System.nanoTime();
+                            deltaTemps = (maintenant - dernierMoment) * 1e-9;
+                            dernierMoment = maintenant;
+                            controleurPartie.actualiser(deltaTemps);
                         }
                         onDraw(canvas);
                     }
@@ -240,11 +306,6 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
                         surfaceHolder.unlockCanvasAndPost(canvas);
 
                 }
-                
-                try {
-                    Thread.sleep(deltaTemps);
-                } catch (InterruptedException e) {}
-
             }
 
         }

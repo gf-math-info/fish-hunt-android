@@ -9,8 +9,8 @@ import fortin.leblanc.fishhuntandroid.modele.entite.poisson.Poisson;
  */
 public class Projectile extends Entite {
 
-    private final static double VITESSE_ELOIGNEMENT = 300;
-    private final static double GRANDEUR_DEFAUT = 50;
+    private final static double VITESSE_ELOIGNEMENT = 900;
+    private final static double GRANDEUR_DEFAUT = 150;
 
     /**
      * Construit un projectile selon une position.

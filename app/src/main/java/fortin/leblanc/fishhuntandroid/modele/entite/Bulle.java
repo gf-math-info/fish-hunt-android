@@ -7,10 +7,10 @@ package fortin.leblanc.fishhuntandroid.modele.entite;
  */
 public class Bulle extends Entite {
 
-    public static final double BULLE_RAYON_MIN = 30;
-    public static final double BULLE_RAYON_MAX = 50;
-    public static final double BULLE_VITESSE_MIN = -350;
-    public static final double BULLE_VITESSE_MAX = -450;
+    public static final double BULLE_RAYON_MIN = 100;
+    public static final double BULLE_RAYON_MAX = 150;
+    public static final double BULLE_VITESSE_MIN = -600;
+    public static final double BULLE_VITESSE_MAX = -800;
 
     /**
      * Construit une bulle selon son rayon, sa position et sa vitesse verticale.

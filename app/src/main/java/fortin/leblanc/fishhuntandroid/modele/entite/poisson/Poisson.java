@@ -9,13 +9,13 @@ import fortin.leblanc.fishhuntandroid.modele.entite.Entite;
  */
 public class Poisson extends Entite {
 
-    public static final double POISSON_VITESSE_MIN = -100;
-    public static double POISSON_VITESSE_MAX = -200;
-    public static double POISSON_GRANDEUR_MIN = 70;
-    public static double POISSON_GRANDEUR_MAX = 100;
-    public static double POISSON_Y_MAX_RATIO = 0.8;
-    public static double POISSON_Y_MIN_RATIO = 0.2;
-    private final double ACCELERATION_VERTICALE_DEFAUT = 100;
+    public static final double POISSON_VITESSE_MIN = -300;
+    public static final double POISSON_VITESSE_MAX = -400;
+    public static final double POISSON_GRANDEUR_MIN = 150;
+    public static final double POISSON_GRANDEUR_MAX = 250;
+    public static final double POISSON_Y_MAX_RATIO = 0.8;
+    public static final double POISSON_Y_MIN_RATIO = 0.2;
+    private final double ACCELERATION_VERTICALE_DEFAUT = 200;
 
     protected double ay;
 

@@ -10,7 +10,7 @@ public class EtoileMer extends Poisson {
     private double yInit;
     private double tempsDepuisCreation;
 
-    private final static double AMPLITUDE = 50;
+    private final static double AMPLITUDE = 100;
 
     /**
      * Construit une étoile de mer carrée avec tous les paramètres.

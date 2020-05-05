@@ -44,7 +44,6 @@ public class ControleurPartie {
      *                      actualisation.
      */
     public void actualiser(double deltaTemps) {
-        planJeu.actualiser(deltaTemps);
 
         if(augmenteNiveau) {
             deltaMessage += deltaTemps;
@@ -52,14 +51,14 @@ public class ControleurPartie {
                 deltaMessage = 0;
                 augmenteNiveau = false;
             }
+        } else if(perdPartie) {
+            deltaMessage += deltaTemps;
+            partieTerminee = deltaMessage >= TEMPS_MESSAGE;
+        } else {
+            planJeu.actualiser(deltaTemps);
         }
 
         perdPartie = partie.estPerdue();
-
-        if(perdPartie) {
-            deltaMessage += deltaTemps;
-            partieTerminee = deltaMessage >= TEMPS_MESSAGE;
-        }
     }
 
     /**

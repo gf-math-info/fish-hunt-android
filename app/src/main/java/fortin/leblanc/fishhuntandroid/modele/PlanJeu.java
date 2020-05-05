@@ -32,7 +32,7 @@ public class PlanJeu {
     // afin de faciliter la coordination des modifications au jeu.
     private final double DELAIS_BULLE = 3;
     private final int NB_GROUPES_BULLES = 3;
-    private final double DIST_GROUPE_BULLE = 20;
+    private final double DIST_GROUPE_BULLE = 100;
     private final int NB_BULLES = 5;
     private final double DELAIS_POISSON = 3;
     private final double DELAIS_POISSON_SPECIAL = 5;
@@ -273,7 +273,7 @@ public class PlanJeu {
             hauteurPoisson = Crabe.RATIO_CRABE_HAUTEUR_LARGEUR *
                     largeurPoisson;
             y = random.nextDouble() *
-                    (Poisson.POISSON_Y_MAX_RATIO - Poisson.POISSON_Y_MIN_RATIO)*
+                    (Poisson.POISSON_Y_MAX_RATIO - Poisson.POISSON_Y_MIN_RATIO) *
                     (hauteur - hauteurPoisson) +
                     Poisson.POISSON_Y_MIN_RATIO * hauteur;
             vx = VITESSE_CRABE * vitesseLevel(partie.getNiveau());
@@ -288,7 +288,7 @@ public class PlanJeu {
                     (Poisson.POISSON_Y_MAX_RATIO - Poisson.POISSON_Y_MIN_RATIO)*
                     (hauteur - largeurPoisson) +
                     Poisson.POISSON_Y_MIN_RATIO * hauteur;
-            vx = 100 * Math.pow(partie.getNiveau(), 1/3.0) + 200;
+            vx = vitesseLevel(partie.getNiveau());
 
             if(!versDroite)
                 vx = -vx;
@@ -309,7 +309,7 @@ public class PlanJeu {
     private void ajouterBullePoisson(double x, double y,
                                      double largeur, double hauteur) {
         for(int i = 0; i < 12; i++) {
-            bulles.add(new Bulle(random.nextDouble() * 10 + 10,
+            bulles.add(new Bulle(random.nextDouble() * 30 + 50,
                     random.nextDouble() * largeur + x,
                     random.nextDouble() * hauteur + y,
                     random.nextDouble() *
@@ -324,6 +324,6 @@ public class PlanJeu {
      * @return  La vitesse des poissons selon le niveau de la partie.
      */
     private double vitesseLevel(int niveau) {
-        return 100 * Math.pow(niveau, 1/3.0) + 200;
+        return 200 * Math.pow(niveau, 1/3.0) + 200;
     }
 }

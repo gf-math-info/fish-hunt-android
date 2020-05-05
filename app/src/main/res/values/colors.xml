@@ -3,4 +3,5 @@
 
     <color name="fondMarin">#00008B</color>
     <color name="bulle">#6464FF</color>
+    <color name="projectile">#222222</color>
 </resources>
