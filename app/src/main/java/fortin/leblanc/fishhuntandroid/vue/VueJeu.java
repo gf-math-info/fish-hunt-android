@@ -8,7 +8,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 import android.view.View;
@@ -31,14 +30,10 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
     private int largeur, hauteur;
     private WeakHashMap<Poisson, Bitmap> poissonBitmaps;
-    private WeakHashMap<Poisson, Integer> poissonImages;//TODO
-    private WeakHashMap<Poisson, Paint> poissonPaints;//TODO
-    private WeakHashMap<Poisson, Boolean> poissonCotes;//TODO
     private Random random;
-    private int[] imgIdPoissons;
-    private Paint[] paintPoissons;
+    private int[] imgIdPoissons, couleurPoissons;
 
-    private Paint msgCentrePaint, bullePaint;
+    private Paint msgCentrePaint, bullePaint, poissonPaint;
 
     public VueJeu(Context context, int largeur, int hauteur) {
         super(context);
@@ -94,13 +89,9 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
         if(controleurPartie.getPartieTerminee()) {
 
-            Log.i("État de la partie", "Partie terminée");
-
             //TODO : Vers l'affchage de score.
 
         } else if(controleurPartie.getPerdPartie()) {
-
-            Log.i("État de la partie", "Perd la partie");
 
             String msg = "Game Over";
             Rect grandeur = new Rect();
@@ -110,8 +101,6 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
                     (canvas.getHeight() - grandeur.height()) / 2, msgCentrePaint);
 
         } else if(controleurPartie.getAugmenteNiveau()) {
-
-            Log.i("État de la partie", "Augmente de niveau");
 
             String msg = "Level " + controleurPartie.getNiveau();
             Rect grandeur = new Rect();
@@ -123,8 +112,6 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
         } else {
             synchronized (cadenasControleur) {
 
-                Log.i("État de la partie", "Partie en cours");
-
                 for(Bulle bulle : controleurPartie.getBulles()) {
                     canvas.drawCircle((float)bulle.getX(), (float)bulle.getY(),
                             (float)bulle.getDiametre() / 2, bullePaint);
@@ -132,25 +119,41 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
                 for(Poisson poisson : controleurPartie.getPoissons()) {
 
-                    if(!poissonPaints.containsKey(poisson)) {
+                    if(!poissonBitmaps.containsKey(poisson)) {//Un nouveau poisson, alors...
 
-                        poissonPaints.put(poisson,
-                                paintPoissons[random.nextInt(paintPoissons.length)]);
-                        poissonImages.put(poisson,
+
+                        int largeur = (int)poisson.getLargeur(),
+                                hauteur = (int)poisson.getHauteur();
+
+                        //On choisit la couleur du poisson.
+                        int couleur = couleurPoissons[random.nextInt(couleurPoissons.length)];
+
+                        Bitmap image = BitmapFactory.decodeResource(getResources(),
                                 imgIdPoissons[random.nextInt(imgIdPoissons.length)]);
-                        poissonCotes.put(poisson, poisson.getVx() > 0);
+                        image = Bitmap.createScaledBitmap(image,
+                                (poisson.getVx() > 0 ? 1 : -1) * (int)poisson.getLargeur(),
+                                (int)poisson.getHauteur(), false);
+
+                        //On parcourt l'image et lorsque le pixel est blanc, on change la couleur de
+                        //ce pixel pour la couleur choisit.
+                        for(int x = 0; x < largeur; x++) {
+                            for(int y = 0; y < hauteur; y++) {
+
+                                int pixel = image.getPixel(x, y);
+                                if(Color.red(pixel) == 255 &&
+                                        Color.green(pixel) == 255 &&
+                                        Color.blue(pixel) == 255) {
+                                    image.setPixel(x, y, couleur);
+                                }
+
+                            }
+                        }
+                        poissonBitmaps.put(poisson, image);
 
                     }
 
-                    Bitmap image = BitmapFactory.decodeResource(getResources(),
-                            poissonImages.get(poisson));
-                    //On ajuste l'image à la taille des poissons. S'il se déplace vers la gauche,
-                    //alors on retourne l'image.
-                    image = Bitmap.createScaledBitmap(image,
-                            (poissonCotes.get(poisson) ? 1 : -1) * (int)poisson.getLargeur(),
-                            (int)poisson.getHauteur(), false);
-                    canvas.drawBitmap(image, (float)poisson.getX(),
-                            (float)poisson.getY(), poissonPaints.get(poisson));
+                    canvas.drawBitmap(poissonBitmaps.get(poisson), (float)poisson.getX(),
+                            (float)poisson.getY(), poissonPaint);
 
                 }
 
@@ -179,6 +182,8 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
     private void initOutilsDessin() {
 
+        poissonPaint = new Paint();
+
         bullePaint = new Paint();
         bullePaint.setColor(getResources().getColor(R.color.bulle));
         bullePaint.setStyle(Paint.Style.FILL);
@@ -187,15 +192,12 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
         msgCentrePaint.setColor(Color.WHITE);
         msgCentrePaint.setTextSize(250);
 
-        poissonPaints = new WeakHashMap<>();
-        poissonImages = new WeakHashMap<>();
-        poissonCotes = new WeakHashMap<>();
+        poissonBitmaps = new WeakHashMap<>();
 
         imgIdPoissons = new int[] {R.drawable.poisson00, R.drawable.poisson01,
                 R.drawable.poisson02, R.drawable.poisson03, R.drawable.poisson04,
                 R.drawable.poisson05, R.drawable.poisson06, R.drawable.poisson07};
-        paintPoissons = new Paint[] {new Paint(Color.RED), new Paint(Color.GREEN),
-                new Paint(Color.CYAN), new Paint(Color.LTGRAY), new Paint(Color.YELLOW)};
+        couleurPoissons = new int[] {Color.RED, Color.GREEN, Color.CYAN, Color.LTGRAY, Color.YELLOW};
         random = new Random();
 
     }
