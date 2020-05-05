@@ -30,9 +30,10 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
     private Object cadenasControleur;
 
     private int largeur, hauteur;
-    private WeakHashMap<Poisson, Integer> poissonImages;
-    private WeakHashMap<Poisson, Paint> poissonPaints;
-    private WeakHashMap<Poisson, Boolean> poissonCotes;
+    private WeakHashMap<Poisson, Bitmap> poissonBitmaps;
+    private WeakHashMap<Poisson, Integer> poissonImages;//TODO
+    private WeakHashMap<Poisson, Paint> poissonPaints;//TODO
+    private WeakHashMap<Poisson, Boolean> poissonCotes;//TODO
     private Random random;
     private int[] imgIdPoissons;
     private Paint[] paintPoissons;
@@ -155,7 +156,6 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
                 for(Projectile projectile : controleurPartie.getProjectiles()) {
 
-                    canvas.drawColor(Color.BLACK);
                     canvas.drawCircle((float)projectile.getX(), (float)projectile.getY(),
                             (float)projectile.getDiametre() / 2, new Paint());
 
@@ -206,7 +206,7 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
         private Object cadenasJeuEnCours;
         private long deltaTemps;
         
-        private final long FRAME_RATE = 30;
+        private final long FRAME_RATE = 100;
 
         public AnimationJeu() {
             jeuEnCours = true;
