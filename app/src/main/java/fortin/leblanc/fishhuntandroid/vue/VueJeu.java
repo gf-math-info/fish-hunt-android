@@ -16,6 +16,7 @@ import android.view.View;
 
 import java.util.Random;
 import java.util.WeakHashMap;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import fortin.leblanc.fishhuntandroid.R;
 import fortin.leblanc.fishhuntandroid.controleur.ControleurPartie;
@@ -36,6 +37,7 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
     private int largeur, hauteur;
     private WeakHashMap<Poisson, Bitmap> poissonBitmaps;
+    private ArrayBlockingQueue<Bitmap> filePoissonsAleatoires;
     private Random random;
     private Bitmap etoileMerBitmap, crabeBitmap, vieBitmap;
     private int[] imgIdPoissons, couleurPoissons;
@@ -151,30 +153,18 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
                             int largeur = (int) poisson.getLargeur(),
                                     hauteur = (int) poisson.getHauteur();
-                            //On choisit la couleur du poisson.
-                            int couleur = couleurPoissons[random.nextInt(couleurPoissons.length)];
 
-                            Bitmap image = BitmapFactory.decodeResource(getResources(),
-                                    imgIdPoissons[random.nextInt(imgIdPoissons.length)]);
+                            Bitmap image = null;
+                            try {
+                                image = filePoissonsAleatoires.take();
+                            } catch (InterruptedException e) {}
+
                             image = Bitmap.createScaledBitmap(image,
                                     (poisson.getVx() > 0 ? 1 : -1) *
                                             (int) poisson.getLargeur(), (int) poisson.getHauteur(),
                                     false);
 
-                            //On parcourt l'image et lorsque le pixel est blanc, on change la
-                            //couleur de ce pixel pour la couleur choisit.
-                            for (int x = 0; x < largeur; x++) {
-                                for (int y = 0; y < hauteur; y++) {
 
-                                    int pixel = image.getPixel(x, y);
-                                    if (Color.red(pixel) == 255 &&
-                                            Color.green(pixel) == 255 &&
-                                            Color.blue(pixel) == 255) {
-                                        image.setPixel(x, y, couleur);
-                                    }
-
-                                }
-                            }
                             poissonBitmaps.put(poisson, image);
 
                         }
@@ -270,6 +260,8 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
         couleurPoissons = new int[] {Color.RED, Color.GREEN, Color.CYAN, Color.LTGRAY, Color.YELLOW};
         random = new Random();
 
+        filePoissonsAleatoires = new ArrayBlockingQueue<>(2);
+
     }
 
     private class AnimationJeu extends Thread{
@@ -279,7 +271,10 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
         private long dernierMoment, maintenant;
         private double deltaTemps;
 
+        private ConstructeurBitmapThread constructeurBitmapThread;
+
         public AnimationJeu() {
+            constructeurBitmapThread = new ConstructeurBitmapThread();
             jeuEnCours = true;
             cadenasJeuEnCours = new Object();
             dernierMoment = System.nanoTime();
@@ -288,6 +283,8 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
         @SuppressLint("WrongCall")
         @Override
         public void run() {
+
+            constructeurBitmapThread.start();
 
             while(getJeuEnCours()) {
 
@@ -314,6 +311,9 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
                 }
             }
 
+            while(!constructeurBitmapThread.isInterrupted())
+                constructeurBitmapThread.interrupt();
+
         }
 
         public boolean getJeuEnCours() {
@@ -326,6 +326,43 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
             synchronized (cadenasJeuEnCours) {
                 this.jeuEnCours = jeuEstEnCours;
             }
+        }
+    }
+
+    private class ConstructeurBitmapThread extends Thread{
+
+        @Override
+        public void run() {
+
+            while (true) {
+
+                Bitmap image = BitmapFactory.decodeResource(getResources(),
+                        imgIdPoissons[random.nextInt(imgIdPoissons.length)]);
+                //Pour que le bitmap soit "mutable".
+                image = image.copy(Bitmap.Config.ARGB_8888, true);
+                //On choisit la couleur du poisson.
+                int couleur = couleurPoissons[random.nextInt(couleurPoissons.length)];
+                //On parcourt l'image et lorsque le pixel est blanc, on change la
+                //couleur de ce pixel pour la couleur choisit.
+                for (int x = 0; x < image.getWidth(); x++) {
+                    for (int y = 0; y < image.getHeight(); y++) {
+
+                        int pixel = image.getPixel(x, y);
+                        if (Color.red(pixel) == 255 &&
+                                Color.green(pixel) == 255 &&
+                                Color.blue(pixel) == 255) {
+                            image.setPixel(x, y, couleur);
+                        }
+
+                    }
+                }
+
+                try {
+                    filePoissonsAleatoires.put(image);
+                } catch (InterruptedException e) {}
+
+            }
+
         }
     }
 }
