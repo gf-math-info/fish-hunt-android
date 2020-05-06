@@ -1,6 +1,10 @@
 <resources>
+    <!-- String pour la vue de l'accueil. -->
     <string name="app_name">Fish Hunt</string>
     <string name="nouvelle_partie_acceuil">Nouvelle Partie!</string>
     <string name="meilleurs_scores_accueil">Meilleurs scores</string>
     <string name="multijoueurs_acceuil">Multijoueurs</string>
+    <!-- String pour la vue d'affichage de scores. -->
+    <string name="ajout_pseudo_button_score">Ajouter</string>
+    <string name="menu_button_score">Menu</string>
 </resources>

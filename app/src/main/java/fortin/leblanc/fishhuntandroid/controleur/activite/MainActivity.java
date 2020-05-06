@@ -37,5 +37,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(versNouvellePartieIntent);
             }
         });
+
+        meilleursScoresButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent versMeilleursScoresIntent = new Intent(MainActivity.this, ScoreActivity.class);
+                startActivity(versMeilleursScoresIntent);
+            }
+        });
+
+        multijoueursButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO
+            }
+        });
     }
 }

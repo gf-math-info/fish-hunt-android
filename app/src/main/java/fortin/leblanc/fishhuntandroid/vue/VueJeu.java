@@ -2,6 +2,7 @@ package fortin.leblanc.fishhuntandroid.vue;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -18,6 +19,8 @@ import java.util.WeakHashMap;
 
 import fortin.leblanc.fishhuntandroid.R;
 import fortin.leblanc.fishhuntandroid.controleur.ControleurPartie;
+import fortin.leblanc.fishhuntandroid.controleur.activite.JeuActivity;
+import fortin.leblanc.fishhuntandroid.controleur.activite.ScoreActivity;
 import fortin.leblanc.fishhuntandroid.modele.entite.Bulle;
 import fortin.leblanc.fishhuntandroid.modele.entite.Projectile;
 import fortin.leblanc.fishhuntandroid.modele.entite.poisson.Crabe;
@@ -95,7 +98,9 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
         if(controleurPartie.getPartieTerminee()) {
 
-            //TODO : Vers l'affchage de score.
+            Intent versScoreActivity = new Intent(getContext(), ScoreActivity.class);
+            versScoreActivity.putExtra(JeuActivity.SCORE, controleurPartie.getScore());
+            getContext().startActivity(versScoreActivity);
 
         } else if(controleurPartie.getPerdPartie()) {
 

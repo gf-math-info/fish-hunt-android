@@ -10,6 +10,8 @@ import fortin.leblanc.fishhuntandroid.vue.VueJeu;
 
 public class JeuActivity extends AppCompatActivity {
 
+    public final static String SCORE = "scoreActivity.SCORE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
