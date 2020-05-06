@@ -22,6 +22,8 @@
             android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity">
         </activity>
+
+        <activity android:name=".controleur.activite.ScoreActivity"></activity>
     </application>
 
 </manifest>

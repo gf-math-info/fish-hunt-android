@@ -12,7 +12,7 @@ import fortin.leblanc.fishhuntandroid.modele.Record;
 
 public class RecordDAO {
 
-    private final int VERSION = 0;
+    private final int VERSION = 1;
     private final String NOM = "score.db";
     private GestionnaireRecordBDD gestionnaireRecordBDD;
 
@@ -51,7 +51,7 @@ public class RecordDAO {
                 GestionnaireRecordBDD.SCORE + " DESC", null);
 
         for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            records.add(new Record(cursor.getString(1), cursor.getInt(2)));
+            records.add(new Record(cursor.getString(0), cursor.getInt(1)));
         }
 
         cursor.close();

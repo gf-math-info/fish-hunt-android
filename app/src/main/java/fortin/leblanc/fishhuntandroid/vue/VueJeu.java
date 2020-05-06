@@ -98,6 +98,7 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
         if(controleurPartie.getPartieTerminee()) {
 
+            animationJeu.setJeuEnCours(false);
             Intent versScoreActivity = new Intent(getContext(), ScoreActivity.class);
             versScoreActivity.putExtra(JeuActivity.SCORE, controleurPartie.getScore());
             getContext().startActivity(versScoreActivity);
