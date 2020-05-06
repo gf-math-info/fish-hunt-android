@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
@@ -71,26 +72,19 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        animationJeu = new AnimationJeu();
         animationJeu.setJeuEnCours(true);
         animationJeu.start();
     }
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        //TODO
+        /*L'écran n'est qu'en mode paysage. Voir le manifest.*/
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        //On arrête le thread de jeu.
-        animationJeu.setJeuEnCours(false);
-        boolean joint = false;
-        while(!joint) {
-            try {
-                animationJeu.join();
-                joint = true;
-            } catch(InterruptedException e) {}
-        }
+        finAnimationJeu();
     }
 
     @Override
@@ -264,6 +258,18 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
+    public void finAnimationJeu() {
+        //On arrête le thread de jeu.
+        animationJeu.setJeuEnCours(false);
+        boolean joint = false;
+        while(!joint) {
+            try {
+                animationJeu.join();
+                joint = true;
+            } catch(InterruptedException e) {}
+        }
+    }
+
     private class AnimationJeu extends Thread{
 
         private boolean jeuEnCours;
@@ -313,6 +319,8 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
             while(!constructeurBitmapThread.isInterrupted())
                 constructeurBitmapThread.interrupt();
+
+            Log.i("Threads", "Arrêtés");//TODO
 
         }
 

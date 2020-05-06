@@ -12,6 +12,8 @@ public class JeuActivity extends AppCompatActivity {
 
     public final static String SCORE = "scoreActivity.SCORE";
 
+    private VueJeu vueJeu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,13 @@ public class JeuActivity extends AppCompatActivity {
         int largeur = grandeur.x;
         int hauteur = grandeur.y;
 
-        setContentView(new VueJeu(this, largeur, hauteur));
+        vueJeu = new VueJeu(this, largeur, hauteur);
+        setContentView(vueJeu);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        vueJeu.finAnimationJeu();
     }
 }
