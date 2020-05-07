@@ -1,12 +1,12 @@
-package fortin.leblanc.fishhuntandroid.controleur;
+package fortin.colson.fishhuntandroid.controleur;
 
 import java.util.List;
 
-import fortin.leblanc.fishhuntandroid.modele.Partie;
-import fortin.leblanc.fishhuntandroid.modele.PlanJeu;
-import fortin.leblanc.fishhuntandroid.modele.entite.Bulle;
-import fortin.leblanc.fishhuntandroid.modele.entite.Projectile;
-import fortin.leblanc.fishhuntandroid.modele.entite.poisson.Poisson;
+import fortin.colson.fishhuntandroid.modele.Partie;
+import fortin.colson.fishhuntandroid.modele.PlanJeu;
+import fortin.colson.fishhuntandroid.modele.entite.Bulle;
+import fortin.colson.fishhuntandroid.modele.entite.Projectile;
+import fortin.colson.fishhuntandroid.modele.entite.poisson.Poisson;
 
 /**
  * Cette classe est le contrôleur de jeu. La vue dit au controleur qu'elle

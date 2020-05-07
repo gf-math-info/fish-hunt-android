@@ -1,4 +1,4 @@
-package fortin.leblanc.fishhuntandroid.controleur;
+package fortin.colson.fishhuntandroid.controleur;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import fortin.leblanc.fishhuntandroid.modele.Record;
+import fortin.colson.fishhuntandroid.modele.Record;
 
 /**
  * Cette classe est implémenté selon le patron "data access object" pour aider à faire le lien entre

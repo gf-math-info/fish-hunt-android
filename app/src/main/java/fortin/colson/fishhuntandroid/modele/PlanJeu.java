@@ -1,13 +1,13 @@
-package fortin.leblanc.fishhuntandroid.modele;
+package fortin.colson.fishhuntandroid.modele;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import fortin.leblanc.fishhuntandroid.modele.entite.Bulle;
-import fortin.leblanc.fishhuntandroid.modele.entite.Projectile;
-import fortin.leblanc.fishhuntandroid.modele.entite.poisson.Crabe;
-import fortin.leblanc.fishhuntandroid.modele.entite.poisson.EtoileMer;
-import fortin.leblanc.fishhuntandroid.modele.entite.poisson.Poisson;
+import fortin.colson.fishhuntandroid.modele.entite.Bulle;
+import fortin.colson.fishhuntandroid.modele.entite.Projectile;
+import fortin.colson.fishhuntandroid.modele.entite.poisson.Crabe;
+import fortin.colson.fishhuntandroid.modele.entite.poisson.EtoileMer;
+import fortin.colson.fishhuntandroid.modele.entite.poisson.Poisson;
 
 /**
  * Cette classe représente le plan du jeu. Elle contient tous les éléments du

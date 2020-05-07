@@ -1,4 +1,4 @@
-package fortin.leblanc.fishhuntandroid;
+package fishhuntandroid;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("fortin.leblanc.fishhuntandroid", appContext.getPackageName());
+        assertEquals("fishhuntandroid", appContext.getPackageName());
     }
 }

@@ -1,4 +1,4 @@
-package fortin.leblanc.fishhuntandroid.modele.entite.poisson;
+package fortin.colson.fishhuntandroid.modele.entite.poisson;
 
 /**
  * Cette classe représente une étoile de mer.

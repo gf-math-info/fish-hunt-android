@@ -1,6 +1,6 @@
-package fortin.leblanc.fishhuntandroid.modele.entite;
+package fortin.colson.fishhuntandroid.modele.entite;
 
-import fortin.leblanc.fishhuntandroid.modele.entite.poisson.Poisson;
+import fortin.colson.fishhuntandroid.modele.entite.poisson.Poisson;
 
 /**
  * Cette classe représente un projectile à lancer.

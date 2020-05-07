@@ -1,11 +1,10 @@
-package fortin.leblanc.fishhuntandroid.controleur.activite;
+package fortin.colson.fishhuntandroid.controleur.activite;
 
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,9 +18,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
-import fortin.leblanc.fishhuntandroid.R;
-import fortin.leblanc.fishhuntandroid.controleur.RecordDAO;
-import fortin.leblanc.fishhuntandroid.modele.Record;
+import fortin.colson.fishhuntandroid.controleur.RecordDAO;
+import fortin.colson.fishhuntandroid.modele.Record;
+import fortin.colson.fishhuntandroid.R;
 
 /**
  * Cette classe représente l'activité de la page des meilleurs scores.

@@ -1,4 +1,4 @@
-package fortin.leblanc.fishhuntandroid.controleur.activite;
+package fortin.colson.fishhuntandroid.controleur.activite;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import fortin.leblanc.fishhuntandroid.R;
+import fortin.colson.fishhuntandroid.R;
 
 /**
  * L'activité principale. Elle affiche la page d'accueil.
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         meilleursScoresButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent versMeilleursScoresIntent = new Intent(MainActivity.this, ScoreActivity.class);
+                Intent versMeilleursScoresIntent = new Intent(MainActivity.this, fortin.colson.fishhuntandroid.controleur.activite.ScoreActivity.class);
                 startActivity(versMeilleursScoresIntent);
             }
         });

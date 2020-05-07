@@ -1,4 +1,4 @@
-package fortin.leblanc.fishhuntandroid.modele.entite;
+package fortin.colson.fishhuntandroid.modele.entite;
 
 /**
  * Cette classe représente les bulles.

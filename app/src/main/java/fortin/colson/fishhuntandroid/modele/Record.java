@@ -1,4 +1,4 @@
-package fortin.leblanc.fishhuntandroid.modele;
+package fortin.colson.fishhuntandroid.modele;
 
 import java.io.Serializable;
 

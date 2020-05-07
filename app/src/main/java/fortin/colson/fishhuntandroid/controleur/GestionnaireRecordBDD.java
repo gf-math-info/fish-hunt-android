@@ -1,4 +1,4 @@
-package fortin.leblanc.fishhuntandroid.controleur;
+package fortin.colson.fishhuntandroid.controleur;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -1,4 +1,4 @@
-package fortin.leblanc.fishhuntandroid.vue;
+package fortin.colson.fishhuntandroid.vue;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,15 +18,15 @@ import java.util.Random;
 import java.util.WeakHashMap;
 import java.util.concurrent.ArrayBlockingQueue;
 
-import fortin.leblanc.fishhuntandroid.R;
-import fortin.leblanc.fishhuntandroid.controleur.ControleurPartie;
-import fortin.leblanc.fishhuntandroid.controleur.activite.JeuActivity;
-import fortin.leblanc.fishhuntandroid.controleur.activite.ScoreActivity;
-import fortin.leblanc.fishhuntandroid.modele.entite.Bulle;
-import fortin.leblanc.fishhuntandroid.modele.entite.Projectile;
-import fortin.leblanc.fishhuntandroid.modele.entite.poisson.Crabe;
-import fortin.leblanc.fishhuntandroid.modele.entite.poisson.EtoileMer;
-import fortin.leblanc.fishhuntandroid.modele.entite.poisson.Poisson;
+import fortin.colson.fishhuntandroid.R;
+import fortin.colson.fishhuntandroid.controleur.ControleurPartie;
+import fortin.colson.fishhuntandroid.controleur.activite.JeuActivity;
+import fortin.colson.fishhuntandroid.controleur.activite.ScoreActivity;
+import fortin.colson.fishhuntandroid.modele.entite.Bulle;
+import fortin.colson.fishhuntandroid.modele.entite.Projectile;
+import fortin.colson.fishhuntandroid.modele.entite.poisson.Crabe;
+import fortin.colson.fishhuntandroid.modele.entite.poisson.EtoileMer;
+import fortin.colson.fishhuntandroid.modele.entite.poisson.Poisson;
 
 /**
  * Cette classe représente la vue du jeu.

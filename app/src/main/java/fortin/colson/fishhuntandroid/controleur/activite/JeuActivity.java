@@ -1,4 +1,4 @@
-package fortin.leblanc.fishhuntandroid.controleur.activite;
+package fortin.colson.fishhuntandroid.controleur.activite;
 
 import android.graphics.Point;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.view.Display;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import fortin.leblanc.fishhuntandroid.vue.VueJeu;
+import fortin.colson.fishhuntandroid.vue.VueJeu;
 
 /**
  * Cette classe représente l'activité du jeu.

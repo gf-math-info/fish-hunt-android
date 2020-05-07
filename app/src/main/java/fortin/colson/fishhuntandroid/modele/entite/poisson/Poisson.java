@@ -1,6 +1,6 @@
-package fortin.leblanc.fishhuntandroid.modele.entite.poisson;
+package fortin.colson.fishhuntandroid.modele.entite.poisson;
 
-import fortin.leblanc.fishhuntandroid.modele.entite.Entite;
+import fortin.colson.fishhuntandroid.modele.entite.Entite;
 
 /**
  * Cette classe représente un poisson dit normal.

@@ -1,6 +1,6 @@
-package fortin.leblanc.fishhuntandroid.modele;
+package fortin.colson.fishhuntandroid.modele;
 
-import fortin.leblanc.fishhuntandroid.controleur.ControleurPartie;
+import fortin.colson.fishhuntandroid.controleur.ControleurPartie;
 
 /**
  * La partie en cours. La partie et le plan de jeu sont deux entités distinctes.

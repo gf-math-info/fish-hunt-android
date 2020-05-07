@@ -1,4 +1,4 @@
-package fortin.leblanc.fishhuntandroid;
+package fishhuntandroid;
 
 import org.junit.Test;
 
