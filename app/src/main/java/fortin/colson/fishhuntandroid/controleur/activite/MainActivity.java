@@ -58,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
         multijoueursButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
+                Intent versMultijoueurIntent = new Intent(MainActivity.this, ConnexionActivity.class);
+                startActivity(versMultijoueurIntent);
             }
         });
     }

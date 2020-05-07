@@ -7,4 +7,17 @@
     <!-- String pour la vue d'affichage de scores. -->
     <string name="ajout_pseudo_button_score">Ajouter</string>
     <string name="menu_button_score">Menu</string>
+    <!-- String pour la vue de connexion. -->
+    <string name="adresse_textview_connexion">Adresse :</string>
+    <string name="port_textview_connexion">Port :</string>
+    <string name="connexion_button_connexion">Connexion</string>
+    <string name="informations_erreur_textview_connexion">Erreur de connexions.</string>
+    <string name="informations_connecte_textview_connexion">Serveur connecté.</string>
+    <string name="informations_connexion_textview_connexion">Connexion en cours...</string>
+    <string name="informations_pseudo_accepte_textview_connexion">Pseudo accepté</string>
+    <string name="informations_pseudo_refuse_textview_connexion">Pseudo refusé. Veuillez choisir un autre pseudo.</string>
+    <string name="toast_port_connexion">Un port est un entier.</string>
+    <string name="pseudo_textview_connexion">Votre pseudo :</string>
+    <string name="valider_button_connexion">Valider</string>
+    <string name="menu_button_connexion">Menu</string>
 </resources>
