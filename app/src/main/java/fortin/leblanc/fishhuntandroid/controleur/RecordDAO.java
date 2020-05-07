@@ -34,9 +34,14 @@ public class RecordDAO {
     public void supprimer(Record record) {
         SQLiteDatabase bdd = gestionnaireRecordBDD.getWritableDatabase();
 
-        bdd.execSQL("DELETE FROM " + GestionnaireRecordBDD.NOM_TABLE + " WHERE " +
-                GestionnaireRecordBDD.NOM + " = " + record.getNom() + ", " +
-                GestionnaireRecordBDD.SCORE + " = " + record.getScore() + " LIMIT 1");
+        Cursor cursor = bdd.query(GestionnaireRecordBDD.NOM_TABLE,
+                new String[] {GestionnaireRecordBDD.CLE}, null, null,
+                null, null, GestionnaireRecordBDD.SCORE + " ASC", "1");
+        cursor.moveToFirst();
+        int cle = cursor.getInt(0);
+
+        bdd.delete(GestionnaireRecordBDD.NOM_TABLE,
+                GestionnaireRecordBDD.CLE + " = " + cle, null);
 
         bdd.close();
     }
