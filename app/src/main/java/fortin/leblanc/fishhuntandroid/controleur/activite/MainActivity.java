@@ -11,8 +11,17 @@ import android.widget.LinearLayout;
 
 import fortin.leblanc.fishhuntandroid.R;
 
+/**
+ * L'activité principale. Elle affiche la page d'accueil.
+ * @author Fortin-Leblanc, Gabriel
+ * @author Colson-Ratelle, Antoine
+ */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * Crée l'activité représentant la page d'accueil.
+     * @param savedInstanceState    Le "bundle" gardant les données de l'activité.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

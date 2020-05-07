@@ -23,8 +23,17 @@ import fortin.leblanc.fishhuntandroid.R;
 import fortin.leblanc.fishhuntandroid.controleur.RecordDAO;
 import fortin.leblanc.fishhuntandroid.modele.Record;
 
+/**
+ * Cette classe représente l'activité de la page des meilleurs scores.
+ * @author Fortin-Leblanc, Gabriel
+ * @author Colson-Ratelle, Antoine
+ */
 public class ScoreActivity extends AppCompatActivity {
 
+    /**
+     * Crée l'activité de la page des meilleurs scores.
+     * @param savedInstanceState    Le "bundle" contenant les informations de l'activité.
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +69,9 @@ public class ScoreActivity extends AppCompatActivity {
 
         });
 
+        /*Si, dans l'"intent", il n'y a pas de score ou s'il y a 10 scores et que le score dans
+        l'"intent" est inférieur au plus petit score dans la liste des meilleurs score, alors on
+        retire la section permettant au joueur d'ajouter son score.*/
         if(score == -1 || (records.size() == 10 && records.get(9).getScore() >= score)) {
 
             retraitSectionAjout();
@@ -105,6 +117,9 @@ public class ScoreActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Retire la section d'ajout de scores.
+     */
     private void retraitSectionAjout() {
         LinearLayout ajoutButtonsLayout = (LinearLayout)
             findViewById(R.id.ajout_buttons_layout);

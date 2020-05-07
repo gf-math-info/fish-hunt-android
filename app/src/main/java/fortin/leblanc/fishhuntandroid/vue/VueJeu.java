@@ -9,7 +9,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
@@ -29,6 +28,11 @@ import fortin.leblanc.fishhuntandroid.modele.entite.poisson.Crabe;
 import fortin.leblanc.fishhuntandroid.modele.entite.poisson.EtoileMer;
 import fortin.leblanc.fishhuntandroid.modele.entite.poisson.Poisson;
 
+/**
+ * Cette classe représente la vue du jeu.
+ * @author Fortin-Leblanc, Gabriel
+ * @author Colson-Ratelle, Antoine
+ */
 public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
     private SurfaceHolder surfaceHolder;
@@ -45,6 +49,12 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
     private Paint msgCentrePaint, bullePaint, poissonPaint, projectilePaint, scoreViePaint;
 
+    /**
+     * Construit la vue du jeu avec le contexte et les dimensions en pixels de l'écran.
+     * @param context   Le contexte de l'activité.
+     * @param largeur   La largeur de l'écran.
+     * @param hauteur   La hauteur de l'écran.
+     */
     public VueJeu(Context context, int largeur, int hauteur) {
         super(context);
         this.largeur = largeur;
@@ -70,6 +80,10 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
         });
     }
 
+    /**
+     * Lorsque la surface est créée, on débute le "thread" d'animation.
+     * @param holder    Le "SurfaceHolder" du SurfaceView.
+     */
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         animationJeu = new AnimationJeu();
@@ -82,11 +96,19 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
         /*L'écran n'est qu'en mode paysage. Voir le manifest.*/
     }
 
+    /**
+     * Lorsque la surface est détruite, on arrête le "thread" d'animation.
+     * @param holder    Le "SurfaceHolder" du "SurfaceView".
+     */
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         finAnimationJeu();
     }
 
+    /**
+     * Méthode appelée par le "thread" d'animation pour redessiner la surface de jeu.
+     * @param canvas    Le canvas du "SurfaceView".
+     */
     @Override
     protected void onDraw(Canvas canvas) {
 
@@ -120,11 +142,13 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
         } else {
             synchronized (cadenasControleur) {
 
+                //On dessine les bulles.
                 for(Bulle bulle : controleurPartie.getBulles()) {
                     canvas.drawCircle((float)bulle.getX(), (float)bulle.getY(),
                             (float)bulle.getDiametre() / 2, bullePaint);
                 }
 
+                //On dessine les poissons.
                 for(Poisson poisson : controleurPartie.getPoissons()) {
 
                     if(!poissonBitmaps.containsKey(poisson)) {//Un nouveau poisson, alors...
@@ -158,7 +182,6 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
                                             (int) poisson.getLargeur(), (int) poisson.getHauteur(),
                                     false);
 
-
                             poissonBitmaps.put(poisson, image);
 
                         }
@@ -177,7 +200,7 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
                 }
 
-                //On dessie le score.
+                //On dessine le score.
                 String msgScore = String.valueOf(controleurPartie.getScore());
                 Rect grandeur = new Rect();
                 scoreViePaint.getTextBounds(msgScore, 0, msgScore.length(), grandeur);
@@ -204,6 +227,7 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
                             scoreViePaint);
                 }
 
+                //On dessine le nombre de un-projectile-un-mort.
                 if(controleurPartie.getNbUnProjectileUnMort() > 0) {
                     String msgUnProjectileUnMort = "Tir parfait \u2715 " +
                             controleurPartie.getNbUnProjectileUnMort();
@@ -220,6 +244,9 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
         super.onDraw(canvas);
     }
 
+    /**
+     * On initialise les objects utiles pour le dessin.
+     */
     private void initOutilsDessin() {
 
         poissonPaint = new Paint();
@@ -254,10 +281,13 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
         couleurPoissons = new int[] {Color.RED, Color.GREEN, Color.CYAN, Color.LTGRAY, Color.YELLOW};
         random = new Random();
 
-        filePoissonsAleatoires = new ArrayBlockingQueue<>(2);
+        filePoissonsAleatoires = new ArrayBlockingQueue<>(1);
 
     }
 
+    /**
+     * Met fin à l'animation du jeu.
+     */
     public void finAnimationJeu() {
         //On arrête le thread de jeu.
         animationJeu.setJeuEnCours(false);
@@ -270,6 +300,9 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    /**
+     * Cette classe représente l'animation de jeu.
+     */
     private class AnimationJeu extends Thread{
 
         private boolean jeuEnCours;
@@ -279,6 +312,9 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
         private ConstructeurBitmapThread constructeurBitmapThread;
 
+        /**
+         * Construit l'animation de jeu.
+         */
         public AnimationJeu() {
             constructeurBitmapThread = new ConstructeurBitmapThread();
             jeuEnCours = true;
@@ -286,10 +322,14 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
             dernierMoment = System.nanoTime();
         }
 
+        /**
+         * Anime le jeu.
+         */
         @SuppressLint("WrongCall")
         @Override
         public void run() {
 
+            //On démarre le thread qui nous aide à faire les images de poissons de couleur.
             constructeurBitmapThread.start();
 
             while(getJeuEnCours()) {
@@ -317,19 +357,25 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
                 }
             }
 
+            //On met fin au thread qui aide à faire les images.
             while(!constructeurBitmapThread.isInterrupted())
                 constructeurBitmapThread.interrupt();
-
-            Log.i("Threads", "Arrêtés");//TODO
-
         }
 
+        /**
+         * Accesseur thread-safe du drapeau signifiant que la partie est toujours en cours.
+         * @return  Vrai si la partie est en cours, faux, sinon.
+         */
         public boolean getJeuEnCours() {
             synchronized (cadenasJeuEnCours) {
                 return jeuEnCours;
             }
         }
 
+        /**
+         * Mutateur thread-safe du drapeau signifiant que la partie est toujours en cours.
+         * @param jeuEstEnCours Vrai si le drapeau est en cours, faux, sinon.
+         */
         public void setJeuEnCours(boolean jeuEstEnCours) {
             synchronized (cadenasJeuEnCours) {
                 this.jeuEnCours = jeuEstEnCours;
@@ -337,8 +383,21 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    /**
+     * Cette classe représente le thread qui aide le thread d'animation. Charger les images et les
+     * colorier sont des exécutions demandantes, alors ce thread est toujours en cours tant que le
+     * thread d'animation est également en cours. Il s'assure que la file "filePoissonsAleatoires"
+     * est toujours pleine d'image de poisson aléatoire dessinée d'une couleur aléatoire.
+     * Lorsque la file est pleine, alors le thread attend qu'un autre thread retire un élément.
+     * Il ne reste qu'au thread d'animation d'agencer la grandeur des images au grandeur des
+     * poissons.
+     * @see ArrayBlockingQueue
+     */
     private class ConstructeurBitmapThread extends Thread{
 
+        /**
+         * S'assure que la file d'images de poissons est toujours pleine.
+         */
         @Override
         public void run() {
 
