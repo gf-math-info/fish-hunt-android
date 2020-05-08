@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import fortin.colson.fishhuntandroid.R;
-import fortin.colson.fishhuntandroid.controleur.ConnexionServeur;
+import fortin.colson.fishhuntandroid.controleur.multijoueur.ConnexionServeur;
 
 public class ConnexionActivity extends AppCompatActivity {
 

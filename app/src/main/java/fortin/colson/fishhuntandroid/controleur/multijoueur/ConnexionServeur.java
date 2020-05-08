@@ -1,4 +1,4 @@
-package fortin.colson.fishhuntandroid.controleur;
+package fortin.colson.fishhuntandroid.controleur.multijoueur;
 
 import java.io.BufferedReader;
 import java.io.IOException;
