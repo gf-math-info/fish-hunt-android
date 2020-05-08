@@ -1,13 +1,22 @@
 <resources>
-    
-    <style name="app_button">
+
+    <!-- Les "app_..." sont les styles par défaut de l'application. -->
+
+    <style name="widget">
         <item name="android:height">30sp</item>
         <item name="android:width">200dp</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:layout_margin">12dp</item>
+    </style>
+    
+    <style name="app_button" parent="widget">
         <item name="backgroundTint">@color/background_color_button</item>
         <item name="android:radius">7dp</item>
-        <item name="android:textColor">@color/text_color_button</item>
-        <item name="android:layout_margin">12dp</item>
+    </style>
+
+    <style name="app_edittext" parent="widget">
+        <item name="android:height">60sp</item>
     </style>
     
 </resources>

@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_linearlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/fondMarin"
-    android:id="@+id/main_linearlayout">
+    android:gravity="center"
+    android:background="@color/fondMarin">
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="300dp"
+        android:layout_height="500dp"
         android:id="@+id/list_scores"
         android:layout_margin="20dp"
         android:divider="#000"
         android:dividerHeight="3dp"
-        android:gravity="center"
-        android:layout_weight="50"/>
+        android:gravity="center"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_weight="50"
         android:gravity="center"
         android:id="@+id/ajout_buttons_layout">
 
@@ -34,28 +33,23 @@
             android:gravity="center">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/ajout_score_textview"
-                android:textSize="40sp"
-                android:textColor="#fff"
-                android:layout_margin="5dp"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/ajout_pseudo_editText"
-                android:background="#fff"
-                android:textColor="#000"
-                android:textSize="40sp"
-                android:layout_margin="5dp"/>
-
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/widget"/>
+
+            <EditText
+                android:id="@+id/ajout_pseudo_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/app_edittext"/>
+
+            <Button
                 android:id="@+id/ajout_button"
-                android:text="@string/ajout_pseudo_button_score"
-                android:layout_margin="5dp"/>
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                style="@style/app_button"
+                android:text="@string/ajout_pseudo_button_score"/>
 
         </LinearLayout>
 
@@ -63,9 +57,8 @@
             android:id="@+id/menu_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="@string/menu_button_score"
-            android:layout_gravity="center"/>
+            style="@style/app_button"
+            android:text="@string/menu_button_score"/>
 
     </LinearLayout>
 

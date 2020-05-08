@@ -3,6 +3,6 @@
     <color name="fondMarin">#00008B</color>
     <color name="bulle">#6464FF</color>
     <color name="projectile">#222222</color>
-    <color name="text_color_button">#FFF</color>
+    <color name="text_color">#FFF</color>
     <color name="background_color_button">#6051BD</color>
 </resources>
