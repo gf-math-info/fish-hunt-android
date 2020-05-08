@@ -36,7 +36,7 @@ public class ScoreActivity extends AppCompatActivity {
      * @param savedInstanceState    Le "bundle" contenant les informations de l'activité.
      */
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.score);
 
@@ -79,6 +79,7 @@ public class ScoreActivity extends AppCompatActivity {
 
         } else {
 
+            getIntent().removeExtra(ScoreActivity.SCORE);
             TextView ajoutScoreTextview = (TextView) findViewById(R.id.ajout_score_textview);
             final EditText ajoutPseudoEditText = (EditText)
                     findViewById(R.id.ajout_pseudo_editText);

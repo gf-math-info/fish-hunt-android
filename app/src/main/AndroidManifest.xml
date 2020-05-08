@@ -28,7 +28,8 @@
             tools:ignore="LockedOrientationActivity">
         </activity>
 
-        <activity android:name=".controleur.activite.ScoreActivity">
+        <activity android:name=".controleur.activite.ScoreActivity"
+            android:noHistory="true">
         </activity>
 
         <activity android:name=".controleur.activite.ConnexionActivity"></activity>

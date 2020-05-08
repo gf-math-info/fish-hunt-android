@@ -1,101 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_layout"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fondMarin"
-    android:padding="20dp"
-    android:gravity="top|center">
-
-    <TextView
-        android:id="@+id/informations_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/app_textview"/>
+    android:background="@color/fondMarin">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/main_layout"
         android:orientation="vertical"
-        android:gravity="center">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:gravity="top|center">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/informations_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            style="@style/app_textview"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:gravity="center">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/adresse_textview_connexion"
-                style="@style/app_textview"/>
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/adresse_textview_connexion"
+                    style="@style/app_textview"/>
 
-            <EditText
-                android:id="@+id/adresse_edittext"
+                <EditText
+                    android:id="@+id/adresse_edittext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/app_edittext"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/port_textview_connexion"
+                    style="@style/app_textview"/>
+
+                <EditText
+                    android:id="@+id/port_edittext"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    style="@style/app_edittext"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/conexion_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/app_edittext"/>
+                android:text="@string/connexion_button_connexion"
+                style="@style/app_button"/>
 
-            <TextView
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pseudo_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pseudo_textview_connexion"
+                    style="@style/app_textview"/>
+
+                <EditText
+                    android:id="@+id/pseudo_edittext"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    style="@style/app_edittext"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/valider_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/port_textview_connexion"
-                style="@style/app_textview"/>
-
-            <EditText
-                android:id="@+id/port_edittext"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                style="@style/app_edittext"/>
+                android:text="@string/valider_button_connexion"
+                style="@style/app_button"/>
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/conexion_button"
+            android:id="@+id/menu_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/connexion_button_connexion"
+            android:text="@string/menu_button_score"
             style="@style/app_button"/>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/pseudo_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_margin="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pseudo_textview_connexion"
-            style="@style/app_textview"/>
-
-        <EditText
-            android:id="@+id/pseudo_edittext"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            style="@style/app_edittext"/>
-
-        <Button
-            android:id="@+id/valider_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/valider_button_connexion"
-            style="@style/app_button"/>
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/menu_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/menu_button_score"
-        style="@style/app_button"/>
-
-
-</LinearLayout>
+</ScrollView>
