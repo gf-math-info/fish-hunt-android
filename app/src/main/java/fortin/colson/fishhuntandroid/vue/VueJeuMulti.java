@@ -13,6 +13,11 @@ import fortin.colson.fishhuntandroid.controleur.activite.ScoreActivity;
 import fortin.colson.fishhuntandroid.controleur.multijoueur.ConnexionServeur;
 import fortin.colson.fishhuntandroid.controleur.multijoueur.ControleurPartieMulti;
 
+/**
+ * Cette classe représente la vue de la partie multijoueur.
+ * @author Fortin-Leblanc, Gabriel
+ * @author Colson-Ratelle, Antoine
+ */
 public class VueJeuMulti extends VueJeu {
 
     private ControleurPartieMulti controleurPartieMulti;
@@ -33,6 +38,10 @@ public class VueJeuMulti extends VueJeu {
         msgMultiJoueurPaint.setTextSize(40);
     }
 
+    /**
+     * Dessine la partie.
+     * @param canvas    Le canvas du "SurfaceView".
+     */
     @Override
     protected void onDraw(Canvas canvas) {
         if(controleurPartieMulti.getErreurConnexion()) {
@@ -54,6 +63,9 @@ public class VueJeuMulti extends VueJeu {
             canvas.drawText(msg, 10, canvas.getHeight() - 30, msgMultiJoueurPaint);
     }
 
+    /**
+     * Met fin au thread d'animation.
+     */
     @Override
     public void finAnimationJeu() {
         super.finAnimationJeu();
