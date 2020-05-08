@@ -159,7 +159,7 @@ public class ControleurPartieMulti extends ControleurPartie {
                     deltaScores = 0;
                 }
 
-                msgMultijoueurAfficher = (indexScores + 1) + ". " + scores.get(indexScores);
+                msgMultijoueurAfficher = scores.get(indexScores).toString();
 
             }
         }
@@ -278,7 +278,6 @@ public class ControleurPartieMulti extends ControleurPartie {
                     return;
                 }
             }
-            Collections.sort(scores);
         }
     }
 
@@ -302,8 +301,6 @@ public class ControleurPartieMulti extends ControleurPartie {
                 }
             }
             scores.remove(scoreARetirer);
-            indexScores = 0;
-            Collections.sort(scores);
         }
     }
 
@@ -320,8 +317,6 @@ public class ControleurPartieMulti extends ControleurPartie {
             nomConnexion = pseudo;
             deltaMessage = 0;
             scores.add(new Record(pseudo, 0));
-            indexScores = 0;
-            Collections.sort(scores);
         }
     }
 
