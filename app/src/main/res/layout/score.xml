@@ -9,17 +9,19 @@
     android:background="@color/fondMarin">
 
     <ListView
-        android:layout_width="300dp"
-        android:layout_height="500dp"
         android:id="@+id/list_scores"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="50"
         android:layout_margin="20dp"
         android:divider="#000"
         android:dividerHeight="3dp"
         android:gravity="center"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="50"
         android:orientation="vertical"
         android:gravity="center"
         android:id="@+id/ajout_buttons_layout">
@@ -36,7 +38,7 @@
                 android:id="@+id/ajout_score_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/widget"/>
+                style="@style/app_textview"/>
 
             <EditText
                 android:id="@+id/ajout_pseudo_editText"

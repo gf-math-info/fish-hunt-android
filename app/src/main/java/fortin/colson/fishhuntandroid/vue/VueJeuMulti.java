@@ -7,7 +7,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import fortin.colson.fishhuntandroid.controleur.activite.ScoreActivity;
+import fortin.colson.fishhuntandroid.controleur.multijoueur.ConnexionServeur;
 import fortin.colson.fishhuntandroid.controleur.multijoueur.ControleurPartieMulti;
 
 public class VueJeuMulti extends VueJeu {
@@ -46,5 +49,18 @@ public class VueJeuMulti extends VueJeu {
         String msg = controleurPartieMulti.getMsgMultijoueurAfficher();
         if(msg != null)
             canvas.drawText(msg, 10, canvas.getHeight() - 30, msgMultiJoueurPaint);
+    }
+
+    @Override
+    public void finAnimationJeu() {
+        super.finAnimationJeu();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    ConnexionServeur.getInstance().ferme();
+                } catch (IOException e) {}
+            }
+        }).start();
     }
 }

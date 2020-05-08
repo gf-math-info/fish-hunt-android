@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="fortin.colson.fishhuntandroid">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -13,7 +13,8 @@
         android:roundIcon="@drawable/star"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".controleur.activite.MainActivity">
+        <activity android:name=".controleur.activite.MainActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -27,7 +28,8 @@
             tools:ignore="LockedOrientationActivity">
         </activity>
 
-        <activity android:name=".controleur.activite.ScoreActivity"></activity>
+        <activity android:name=".controleur.activite.ScoreActivity">
+        </activity>
 
         <activity android:name=".controleur.activite.ConnexionActivity"></activity>
     </application>

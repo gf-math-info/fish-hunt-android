@@ -111,7 +111,7 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
         if(controleurPartie.getPartieTerminee()) {
 
-            animationJeu.setJeuEnCours(false);
+            finAnimationJeu();
             Intent versScoreActivity = new Intent(getContext(), ScoreActivity.class);
             versScoreActivity.putExtra(ScoreActivity.SCORE, controleurPartie.getScore());
             getContext().startActivity(versScoreActivity);
@@ -286,13 +286,6 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
     public void finAnimationJeu() {
         //On arrête le thread de jeu.
         animationJeu.setJeuEnCours(false);
-        boolean joint = false;
-        while(!joint) {
-            try {
-                animationJeu.join();
-                joint = true;
-            } catch(InterruptedException e) {}
-        }
     }
 
     /**

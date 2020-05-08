@@ -84,6 +84,7 @@ public class ScoreActivity extends AppCompatActivity {
                     findViewById(R.id.ajout_pseudo_editText);
             final Button ajoutButton = (Button) findViewById(R.id.ajout_button);
 
+            ajoutScoreTextview.setMaxWidth(Integer.MAX_VALUE);
             ajoutScoreTextview.setText("Vous avez fait " + score + " point" +
                     (score > 1 ? "s." : "."));
 

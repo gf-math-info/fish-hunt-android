@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fondMarin"
-    android:gravity="center">
+    android:padding="20dp"
+    android:gravity="top|center">
 
     <TextView
         android:id="@+id/informations_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
-        android:textSize="35sp"/>
+        style="@style/app_textview"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,29 +30,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/adresse_textview_connexion"
-                android:textColor="#fff"
-                android:textSize="30sp"/>
+                style="@style/app_textview"/>
 
             <EditText
                 android:id="@+id/adresse_edittext"
-                android:layout_width="250dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:textColor="#fff"/>
+                style="@style/app_edittext"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/port_textview_connexion"
-                android:textSize="30sp"
-                android:textColor="#fff"/>
+                style="@style/app_textview"/>
 
             <EditText
                 android:id="@+id/port_edittext"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:textColor="#fff"/>
+                style="@style/app_edittext"/>
 
         </LinearLayout>
 
@@ -60,7 +56,8 @@
             android:id="@+id/conexion_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/connexion_button_connexion"/>
+            android:text="@string/connexion_button_connexion"
+            style="@style/app_button"/>
 
     </LinearLayout>
 
@@ -76,21 +73,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pseudo_textview_connexion"
-            android:textSize="30sp"
-            android:textColor="#fff"/>
+            style="@style/app_textview"/>
 
         <EditText
             android:id="@+id/pseudo_edittext"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:textColor="#fff"/>
+            style="@style/app_edittext"/>
 
         <Button
             android:id="@+id/valider_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/valider_button_connexion" />
+            android:text="@string/valider_button_connexion"
+            style="@style/app_button"/>
 
     </LinearLayout>
 
@@ -99,7 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/menu_button_score"
-        android:layout_margin="10dp"/>
+        style="@style/app_button"/>
 
 
 </LinearLayout>

@@ -4,19 +4,30 @@
 
     <style name="widget">
         <item name="android:height">30sp</item>
-        <item name="android:width">200dp</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/text_color</item>
-        <item name="android:layout_margin">12dp</item>
+        <item name="android:layout_margin">8dp</item>
     </style>
     
     <style name="app_button" parent="widget">
         <item name="backgroundTint">@color/background_color_button</item>
+        <item name="android:width">200dp</item>
         <item name="android:radius">7dp</item>
     </style>
 
     <style name="app_edittext" parent="widget">
         <item name="android:height">60sp</item>
+        <!-- Plusieurs attributs signifiant la même chose pour différentes versions d'Android. -->
+        <item name="android:maxLines">1</item>
+        <item name="android:lines">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="app_textview" parent="widget">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:lines">1</item>
+        <item name="android:singleLine">true</item>
     </style>
     
 </resources>

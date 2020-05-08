@@ -48,6 +48,7 @@ public class ConnexionActivity extends AppCompatActivity {
         adresseEditText.setText(ConnexionServeur.getAdresse());
         portEditText.setText(String.valueOf(ConnexionServeur.getPort()));
 
+
         //Initialisation des listeners.
         connexionButton.setOnClickListener(new View.OnClickListener() {
 
