@@ -37,6 +37,7 @@ TESTS
     appareils mobiles suivants,
         * Google Pixel 3XL, 2018, Android 10
         * Samsung Tab A (SM-T580), 2016, Android 8.1
+	* Samsung Galaxy S9, 2018, Android 10
     D'autres tests ont été réalisés sur l'émulateur suivant dans Android-Studio:
         * Galaxy Nexus API 22, Android 5.1
     Remarque: 
