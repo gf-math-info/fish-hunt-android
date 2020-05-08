@@ -105,6 +105,10 @@ public class ControleurPartieMulti extends ControleurPartie {
         } catch (InterruptedException e) {}
     }
 
+    /**
+     * Actualise la partie.
+     * @param deltaTemps    L'intervalle de temps depuis la dernière
+     */
     @Override
     public void actualiser(double deltaTemps) {
 
