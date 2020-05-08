@@ -43,8 +43,11 @@ public class VueJeuMulti extends VueJeu {
             versScoresIntent.putExtra(ScoreActivity.SCORE, controleurPartieMulti.getScore());
             getContext().startActivity(versScoresIntent);
 
-        } else
-            super.onDraw(canvas);
+        } else {
+            synchronized (controleurPartieMulti.getCadenasPlanJeu()) {
+                super.onDraw(canvas);
+            }
+        }
 
         String msg = controleurPartieMulti.getMsgMultijoueurAfficher();
         if(msg != null)

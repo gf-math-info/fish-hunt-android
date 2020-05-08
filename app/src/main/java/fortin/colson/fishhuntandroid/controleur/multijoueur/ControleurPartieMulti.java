@@ -24,6 +24,7 @@ public class ControleurPartieMulti extends ControleurPartie {
     private final int MISE_A_JOUR_SCORE_ENVOIE = 60;
 
     private final Object cadenasDonneesAffichage;
+    private final Object cadenasPlanJeu;
     private ArrayList<Record> scores;
     private ConnexionServeur connexion;
     private PrintWriter output;
@@ -54,6 +55,7 @@ public class ControleurPartieMulti extends ControleurPartie {
         partie = new PartieMulti(this);
         planJeu.setPartie(partie);
         cadenasDonneesAffichage = new Object();
+        cadenasPlanJeu = new Object();
 
         scores = new ArrayList<>();
         indexScores = 0;
@@ -238,7 +240,9 @@ public class ControleurPartieMulti extends ControleurPartie {
             deltaMessage = 0;
         }
 
-        getPlanJeu().ajouterPoissonNormal();
+        synchronized (cadenasPlanJeu) {
+            getPlanJeu().ajouterPoissonNormal();
+        }
     }
 
     /**
@@ -256,7 +260,9 @@ public class ControleurPartieMulti extends ControleurPartie {
             deltaMessage = 0;
         }
 
-        getPlanJeu().ajouterPoissonSpecial();
+        synchronized (cadenasPlanJeu) {
+            getPlanJeu().ajouterPoissonSpecial();
+        }
     }
 
     /**
@@ -364,6 +370,14 @@ public class ControleurPartieMulti extends ControleurPartie {
     @Override
     public List<Projectile> getProjectiles() {
         return getPlanJeu().getProjectiles();
+    }
+
+    /**
+     * Accesseur du cadenas pour manipuler le plan de jeu.
+     * @return  Le cadenas du plan de jeu.
+     */
+    public Object getCadenasPlanJeu() {
+        return cadenasPlanJeu;
     }
 
     /**
