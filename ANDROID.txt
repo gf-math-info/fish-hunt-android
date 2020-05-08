@@ -1,0 +1,62 @@
+
+MVC
+    Le modèle a été copié-collé à partir du projet fish-hunt initial.
+    Cependant, les constantes de taille et de vitesse ont été adaptées
+    pour la version Android, car les appareils Android possèdent une 
+    plus grande résolution. De plus, il est beaucoup plus facile
+    de jouer avec les doigts qu'avec la souris.
+ 
+    À l'exception de la vue du jeu, les vues ont été créées en XML.
+    Elles sont ensuite désérialisées.
+
+    Les classes d'activités ont été ajoutées au contrôleur. Le 
+    contrôleur de jeu du projet fish-hunt a été modifié pour
+    optimiser considérablement la fluidité du jeu.
+
+
+STYLE
+    Un minimum de temps a été alloué au style. Des feuilles de style ont été crées 
+    pour les "widgets" tels que les Button, TextView, EditText.
+
+
+ENREGISTREMENT DE DONNÉES
+    Deux classes dans le package fortin.colson.fishhuntandroid.controleur 
+    nous aident à communiquer avec une base de données SQLite. 
+    * La classe GestionnaireRecordBDD sert à créer la table des records
+      si elle n'existe pas encore et à la recréer si la version est modifiée.
+    * La classe RecordDAO suit le patron "data access object". Elle simplifie
+      l'utilisation de la table des records. La table des records contient
+      les meilleurs records jusqu'à un maximum de 10.
+
+
+TESTS
+    Une équipe de testeurs a été recrutée (membres de la famille âgés de 8 à 38 ans).
+    Nous avons optimisé le niveau de difficulté du jeu en fonction de leurs commentaires.
+    De plus, nous avons optimisé la fluidité du jeu avec des threads supplémentaires 
+    et des files "thead-safe". Important: nos tests ont été réalisés avec les 2 
+    appareils mobiles suivants,
+        * Google Pixel 3XL, 2018, Android 10
+        * Samsung Tab A (SM-T580), 2016, Android 8.1
+    D'autres tests ont été réalisés sur l'émulateur suivant dans Android-Studio:
+        * Galaxy Nexus API 22, Android 5.1
+    Remarque: 
+    L'affichage du jeu est opimisé pour une tablette, mais fonctionne aussi très bien
+    sur téléphone mobile.
+
+
+APPAREIL NON SUPPORTÉ
+    Le jeu est non fonctionnel sur le téléphone LG G4. L'application démarre, mais il 
+    y a des bugs. Un appareil plus à jour devrait jouer le jeu sans problème, mais il
+    existe peut-être d'autres appareils Android qui ne sont pas supportés.
+
+
+INSTALLATION
+    Voir README.txt
+
+
+RÉFÉRENCE PRINCIPALE
+    Pour accomplir ce bonus, nous avons complété le tutoriel 
+    "Créez des applications pour Android" d'OpenClassrooms.
+    https://openclassrooms.com/fr/courses/2023345-creez-des-applications-pour-android
+    Par le professeur Frédéric Espiau
+
