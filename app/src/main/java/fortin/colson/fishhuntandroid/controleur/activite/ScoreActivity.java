@@ -29,6 +29,8 @@ import fortin.colson.fishhuntandroid.R;
  */
 public class ScoreActivity extends AppCompatActivity {
 
+    public final static String SCORE = "scoreActivity.SCORE";
+
     /**
      * Crée l'activité de la page des meilleurs scores.
      * @param savedInstanceState    Le "bundle" contenant les informations de l'activité.
@@ -55,7 +57,7 @@ public class ScoreActivity extends AppCompatActivity {
         listScore.setAdapter(arrayAdapter);
 
         Intent intent = getIntent();
-        final int score = intent.getIntExtra(JeuActivity.SCORE, -1);
+        final int score = intent.getIntExtra(ScoreActivity.SCORE, -1);
 
         menuButton.setOnClickListener(new View.OnClickListener() {
 

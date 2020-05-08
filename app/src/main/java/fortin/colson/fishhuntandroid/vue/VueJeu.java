@@ -20,7 +20,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 import fortin.colson.fishhuntandroid.R;
 import fortin.colson.fishhuntandroid.controleur.ControleurPartie;
-import fortin.colson.fishhuntandroid.controleur.activite.JeuActivity;
 import fortin.colson.fishhuntandroid.controleur.activite.ScoreActivity;
 import fortin.colson.fishhuntandroid.modele.entite.Bulle;
 import fortin.colson.fishhuntandroid.modele.entite.Projectile;
@@ -40,7 +39,6 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
     private ControleurPartie controleurPartie;
     private Object cadenasControleur;
 
-    private int largeur, hauteur;
     private WeakHashMap<Poisson, Bitmap> poissonBitmaps;
     private ArrayBlockingQueue<Bitmap> filePoissonsAleatoires;
     private Random random;
@@ -51,19 +49,16 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
     /**
      * Construit la vue du jeu avec le contexte et les dimensions en pixels de l'écran.
-     * @param context   Le contexte de l'activité.
-     * @param largeur   La largeur de l'écran.
-     * @param hauteur   La hauteur de l'écran.
+     * @param context           Le contexte de l'activité.
+     * @param controleurPartie  Le contrôleur de la partie.
      */
-    public VueJeu(Context context, int largeur, int hauteur) {
+    public VueJeu(Context context, final ControleurPartie controleurPartie) {
         super(context);
-        this.largeur = largeur;
-        this.hauteur = hauteur;
         surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
 
         animationJeu = new AnimationJeu();
-        controleurPartie = new ControleurPartie(largeur, hauteur);
+        this.controleurPartie = controleurPartie;
         cadenasControleur = new Object();
 
         initOutilsDessin();
@@ -118,7 +113,7 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
 
             animationJeu.setJeuEnCours(false);
             Intent versScoreActivity = new Intent(getContext(), ScoreActivity.class);
-            versScoreActivity.putExtra(JeuActivity.SCORE, controleurPartie.getScore());
+            versScoreActivity.putExtra(ScoreActivity.SCORE, controleurPartie.getScore());
             getContext().startActivity(versScoreActivity);
 
         } else if(controleurPartie.getPerdPartie()) {

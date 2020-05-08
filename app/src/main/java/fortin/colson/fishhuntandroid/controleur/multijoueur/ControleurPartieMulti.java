@@ -60,41 +60,52 @@ public class ControleurPartieMulti extends ControleurPartie {
 
         receveur = new Receveur(this);
 
-        try {
+        Thread scoreServeurThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
 
-            connexion = ConnexionServeur.getInstance();
-            output = connexion.getOutput();
+                    connexion = ConnexionServeur.getInstance();
+                    output = connexion.getOutput();
 
-            //On récupère le score des joueurs en ligne.
-            int nombreJoueurs = connexion.getInput().read();
-            if(nombreJoueurs == -1)
-                throw new IOException();
+                    //On récupère le score des joueurs en ligne.
+                    int nombreJoueurs = connexion.getInput().read();
+                    if(nombreJoueurs == -1)
+                        throw new IOException();
 
-            String pseudoJoueur;
-            int scoreJoueur;
-            for(int i = 0; i < nombreJoueurs; i++) {
-                pseudoJoueur = connexion.getInput().readLine();
-                if(pseudoJoueur == null)
-                    throw new IOException();
+                    String pseudoJoueur;
+                    int scoreJoueur;
+                    for(int i = 0; i < nombreJoueurs; i++) {
+                        pseudoJoueur = connexion.getInput().readLine();
+                        if(pseudoJoueur == null)
+                            throw new IOException();
 
-                scoreJoueur = connexion.getInput().read();
-                if(scoreJoueur == -1)
-                    throw new IOException();
+                        scoreJoueur = connexion.getInput().read();
+                        if(scoreJoueur == -1)
+                            throw new IOException();
 
-                scores.add(new Record(pseudoJoueur, scoreJoueur));
+                        scores.add(new Record(pseudoJoueur, scoreJoueur));
+                    }
+
+                    Collections.sort(scores);
+
+                    new Thread(receveur).start();
+
+                } catch (IOException ioException) {
+                    afficherErreur();
+                }
             }
+        });
 
-            Collections.sort(scores);
-
-            new Thread(receveur).start();
-
-        } catch (IOException ioException) {
-            afficherErreur();
-        }
+        scoreServeurThread.start();
+        try {
+            scoreServeurThread.join();//C'est voulu.
+        } catch (InterruptedException e) {}
     }
 
     @Override
     public void actualiser(double deltaTemps) {
+
         super.actualiser(deltaTemps);
 
         synchronized (cadenasDonneesAffichage) {
@@ -145,7 +156,7 @@ public class ControleurPartieMulti extends ControleurPartie {
                     indexScores %= scores.size();
                 }
 
-                msgMultijoueurAfficher = (indexScores) + ". " + scores.get(indexScores);
+                msgMultijoueurAfficher = (indexScores + 1) + ". " + scores.get(indexScores);
 
             }
         }

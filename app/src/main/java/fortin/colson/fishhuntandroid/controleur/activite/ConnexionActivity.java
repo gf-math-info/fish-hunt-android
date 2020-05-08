@@ -150,7 +150,9 @@ public class ConnexionActivity extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             informationsTextView.setText(R.string.informations_pseudo_accepte_textview_connexion);
-                                            //TODO : Intent vers la partie multijoueur.
+                                            Intent versPartieMultiIntent = new Intent(ConnexionActivity.this, JeuActivity.class);
+                                            versPartieMultiIntent.putExtra(JeuActivity.MULTIJOUEUR, true);
+                                            startActivity(versPartieMultiIntent);
                                         }
                                     });
                                     break;

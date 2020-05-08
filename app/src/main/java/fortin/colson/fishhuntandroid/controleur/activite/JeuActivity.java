@@ -2,11 +2,15 @@ package fortin.colson.fishhuntandroid.controleur.activite;
 
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import fortin.colson.fishhuntandroid.controleur.ControleurPartie;
+import fortin.colson.fishhuntandroid.controleur.multijoueur.ControleurPartieMulti;
 import fortin.colson.fishhuntandroid.vue.VueJeu;
+import fortin.colson.fishhuntandroid.vue.VueJeuMulti;
 
 /**
  * Cette classe représente l'activité du jeu.
@@ -15,9 +19,8 @@ import fortin.colson.fishhuntandroid.vue.VueJeu;
  */
 public class JeuActivity extends AppCompatActivity {
 
-    public final static String SCORE = "scoreActivity.SCORE";
-
     private VueJeu vueJeu;
+    public final static String MULTIJOUEUR = "JeuActivite.MULTIJOUEUR";
 
     /**
      * Crée l'activité du jeu.
@@ -38,7 +41,16 @@ public class JeuActivity extends AppCompatActivity {
         int largeur = grandeur.x;
         int hauteur = grandeur.y;
 
-        vueJeu = new VueJeu(this, largeur, hauteur);
+        boolean estPartieMulti = getIntent().getBooleanExtra(JeuActivity.MULTIJOUEUR, false);
+        Log.i("Est Partie multi", String.valueOf(estPartieMulti));
+        if(estPartieMulti) {
+            ControleurPartieMulti controleurPartieMulti =
+                    new ControleurPartieMulti(largeur, hauteur);
+            vueJeu = new VueJeuMulti(this, controleurPartieMulti);
+        } else {
+            ControleurPartie controleurPartie = new ControleurPartie(largeur, hauteur);
+            vueJeu = new VueJeu(this, controleurPartie);
+        }
         setContentView(vueJeu);
     }
 
