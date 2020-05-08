@@ -21,6 +21,11 @@ import java.io.PrintWriter;
 import fortin.colson.fishhuntandroid.R;
 import fortin.colson.fishhuntandroid.controleur.multijoueur.ConnexionServeur;
 
+/**
+ * Cette classe représente l'activité de connexion.
+ * @author Fortin-Leblanc, Gabriel
+ * @author Colson-Ratelle, Antoine
+ */
 public class ConnexionActivity extends AppCompatActivity {
 
     private ConnexionServeur connexionServeur;

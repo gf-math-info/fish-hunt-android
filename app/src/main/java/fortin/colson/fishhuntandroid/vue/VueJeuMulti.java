@@ -46,7 +46,7 @@ public class VueJeuMulti extends VueJeu {
     protected void onDraw(Canvas canvas) {
         if(controleurPartieMulti.getErreurConnexion()) {
 
-            Toast.makeText(getContext(), "Un erreur de connexion s'est produit.",
+            Toast.makeText(getContext(), "Une erreur de connexion s'est produite.",
                     Toast.LENGTH_LONG).show();
             Intent versScoresIntent = new Intent(getContext(), ScoreActivity.class);
             versScoresIntent.putExtra(ScoreActivity.SCORE, controleurPartieMulti.getScore());

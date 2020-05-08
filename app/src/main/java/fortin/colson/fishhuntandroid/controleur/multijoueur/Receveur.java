@@ -65,7 +65,7 @@ public class Receveur implements Runnable{
     }
 
     /**
-     * Méthode redéfini qui s'éxécute lorsque "Thread start".
+     * Méthode redéfinie qui s'éxécute lorsque "Thread start".
      */
     @Override
     public void run() {

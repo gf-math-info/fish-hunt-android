@@ -11,7 +11,7 @@ import java.util.List;
 import fortin.colson.fishhuntandroid.modele.Record;
 
 /**
- * Cette classe est implémenté selon le patron "data access object" pour aider à faire le lien entre
+ * Cette classe est implémentée selon le patron "data access object" pour aider à faire le lien entre
  * la base de données et le reste du programme.
  * @author Fortin-Leblanc, Gabriel
  * @author Colson-Ratelle, Antoine

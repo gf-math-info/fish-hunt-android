@@ -101,13 +101,17 @@ public class ControleurPartieMulti extends ControleurPartie {
 
         scoreServeurThread.start();
         try {
-            scoreServeurThread.join();//C'est voulu.
+            // Ici, on ne commence pas la partie avant que les échanges
+            // de données soient terminés. On a un thread pour le scoreServeur,
+            // parce qu'Android exige que toute communication avec internet
+            // soit sur un thread différent du thread principal.
+            scoreServeurThread.join();
         } catch (InterruptedException e) {}
     }
 
     /**
      * Actualise la partie.
-     * @param deltaTemps    L'intervalle de temps depuis la dernière
+     * @param deltaTemps    L'intervalle de temps depuis la dernière actualisation.
      */
     @Override
     public void actualiser(double deltaTemps) {
@@ -250,7 +254,7 @@ public class ControleurPartieMulti extends ControleurPartie {
     }
 
     /**
-     * Signal au contrôleur de la partie que le joueur se fait "attaquer" par un autre joueur avec un poisson spécial.
+     * Signale au contrôleur de la partie que le joueur se fait "attaquer" par un autre joueur avec un poisson spécial.
      * @param pseudoAttaquant   Le pseudo de l'attaquant.
      */
     public void attaquePoissonSpecial(String pseudoAttaquant) {
@@ -270,8 +274,8 @@ public class ControleurPartieMulti extends ControleurPartie {
     }
 
     /**
-     * Signal au contrôleur de la partie que le score d'un joueur a changé.
-     * @param pseudo    Le joueur pour lequel le score a changé.
+     * Signale au contrôleur de la partie que le score d'un joueur a changé.
+     * @param pseudo    Le joueur dont le score a changé.
      * @param score     Le nouveau score du joueur.
      */
     public void miseAJourScore(String pseudo, int score) {
@@ -286,7 +290,7 @@ public class ControleurPartieMulti extends ControleurPartie {
     }
 
     /**
-     * Signal au contrôleur de la partie qu'un joueur vient de se déconnecter.
+     * Signale au contrôleur de la partie qu'un joueur vient de se déconnecter.
      * @param pseudo    Le pseudo du joueur qui vient de se déconnecter.
      */
     public void deconnexionJoueur(String pseudo) {
@@ -309,7 +313,7 @@ public class ControleurPartieMulti extends ControleurPartie {
     }
 
     /**
-     * Signal au contrôleur de la partie qu'un joueur vient de se connecter.
+     * Signale au contrôleur de la partie qu'un joueur vient de se connecter.
      * @param pseudo    Le pseudo du joueur qui vient de se connecter.
      */
     public void connexionJoueur(String pseudo) {
@@ -325,7 +329,7 @@ public class ControleurPartieMulti extends ControleurPartie {
     }
 
     /**
-     * Accesseur du plan de jeu. Cette méthode est "thread-safe" pour permettre le partage sur plan
+     * Accesseur du plan de jeu. Cette méthode est "thread-safe" pour permettre le partage du plan
      * de jeu entre ThreadUI et Receveur.
      * @return  Le plan de jeu.
      */
@@ -380,8 +384,8 @@ public class ControleurPartieMulti extends ControleurPartie {
     }
 
     /**
-     * Accesseur du drapeau signifiant qu'un erreur de connexion vient de se produire.
-     * @return  Vrai si un erreur de connexion vient de se produire, faux, sinon.
+     * Accesseur du drapeau signifiant qu'une erreur de connexion vient de se produire.
+     * @return  Vrai si une erreur de connexion vient de se produire, faux, sinon.
      */
     public boolean getErreurConnexion() {
         synchronized (cadenasDonneesAffichage) {
@@ -390,7 +394,7 @@ public class ControleurPartieMulti extends ControleurPartie {
     }
 
     /**
-     * Accesseur du message à afficher dans la zone de texte réservée pour les messages du mode
+     * Accesseur du message à afficher dans la zone de texte réservée aux messages du mode
      * multijoueur.
      * @return  Le message à afficher.
      */

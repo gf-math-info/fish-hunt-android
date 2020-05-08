@@ -26,7 +26,7 @@ public class ConnexionServeur {
 
     /**
      * Construit une instance de ConnexionServeur. Le socket est créé à ce moment.
-     * @throws IOException  Si un erreur se produit lors de la connexion.
+     * @throws IOException  Si une erreur se produit lors de la connexion.
      */
     private ConnexionServeur() throws IOException{
         client = new Socket(adresse, port);
@@ -36,8 +36,8 @@ public class ConnexionServeur {
 
     /**
      * Mutateur de l'instance de la connexion.
-     * @return              La connexion vers le serveurs.
-     * @throws IOException  Si un erreur se produit lors de la connexion.
+     * @return              La connexion vers le serveur.
+     * @throws IOException  Si une erreur se produit lors de la connexion.
      */
     public static ConnexionServeur getInstance() throws IOException{
         if(instance == null)

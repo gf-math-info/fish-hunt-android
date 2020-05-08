@@ -70,7 +70,7 @@ public class ScoreActivity extends AppCompatActivity {
 
         });
 
-        /*Si, dans l'"intent", il n'y a pas de score ou s'il y a 10 scores et que le score dans
+        /* Si, dans l'"intent", il n'y a pas de score ou s'il y a 10 scores et que le score dans
         l'"intent" est inférieur au plus petit score dans la liste des meilleurs score, alors on
         retire la section permettant au joueur d'ajouter son score.*/
         if(score == -1 || (records.size() == 10 && records.get(9).getScore() >= score)) {

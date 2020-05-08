@@ -375,9 +375,9 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
      * Cette classe représente le thread qui aide le thread d'animation. Charger les images et les
      * colorier sont des exécutions demandantes, alors ce thread est toujours en cours tant que le
      * thread d'animation est également en cours. Il s'assure que la file "filePoissonsAleatoires"
-     * est toujours pleine d'image de poisson aléatoire dessinée d'une couleur aléatoire.
+     * est toujours pleine d'images de poissons aléatoires dessinées d'une couleur aléatoire.
      * Lorsque la file est pleine, alors le thread attend qu'un autre thread retire un élément.
-     * Il ne reste qu'au thread d'animation d'agencer la grandeur des images au grandeur des
+     * Il ne reste qu'au thread d'animation à agencer la grandeur des images avec la grandeur des
      * poissons.
      * @see ArrayBlockingQueue
      */
@@ -398,7 +398,7 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
                 //On choisit la couleur du poisson.
                 int couleur = couleurPoissons[random.nextInt(couleurPoissons.length)];
                 //On parcourt l'image et lorsque le pixel est blanc, on change la
-                //couleur de ce pixel pour la couleur choisit.
+                //couleur de ce pixel pour la couleur choisie.
                 for (int x = 0; x < image.getWidth(); x++) {
                     for (int y = 0; y < image.getHeight(); y++) {
 
@@ -408,16 +408,13 @@ public class VueJeu extends SurfaceView implements SurfaceHolder.Callback {
                                 Color.blue(pixel) == 255) {
                             image.setPixel(x, y, couleur);
                         }
-
                     }
                 }
 
                 try {
                     filePoissonsAleatoires.put(image);
                 } catch (InterruptedException e) {}
-
             }
-
         }
     }
 }
