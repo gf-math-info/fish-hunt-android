@@ -154,6 +154,7 @@ public class ControleurPartieMulti extends ControleurPartie {
                 if(deltaScores >= TEMPS_MESSAGE_SCORES) {
                     indexScores++;
                     indexScores %= scores.size();
+                    deltaScores = 0;
                 }
 
                 msgMultijoueurAfficher = (indexScores + 1) + ". " + scores.get(indexScores);

@@ -1,2 +1,13 @@
 <resources>
+    
+    <style name="app_button">
+        <item name="android:height">30sp</item>
+        <item name="android:width">200dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="backgroundTint">@color/background_color_button</item>
+        <item name="android:radius">7dp</item>
+        <item name="android:textColor">@color/text_color_button</item>
+        <item name="android:layout_margin">12dp</item>
+    </style>
+    
 </resources>
